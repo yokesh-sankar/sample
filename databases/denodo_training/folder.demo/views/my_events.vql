@@ -22,7 +22,7 @@ CREATE OR REPLACE TABLE my_events I18N us_pst (
         end_date:timestamp (sourcetyperadix = '10', sourcetypesize = '7', sourcetypeid = '93')
     )
     FOLDER = '/demo'
-    CONSTRAINT 'SYS_C007513' PRIMARY KEY ( 'event_id' )
+    PRIMARY KEY ( 'event_name' )
     CACHE PARTIAL
     BATCHSIZEINCACHE DEFAULT
     TIMETOLIVEINCACHE DEFAULT

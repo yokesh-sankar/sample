@@ -20,7 +20,7 @@ CREATE OR REPLACE TABLE orders2 I18N us_pst (
         personid:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '38', sourcetypeid = '3')
     )
     FOLDER = '/demo'
-    CONSTRAINT 'SYS_C007448' PRIMARY KEY ( 'orderid' )
+    PRIMARY KEY ( 'ordernumber' )
     CACHE OFF
     TIMETOLIVEINCACHE DEFAULT
     ADD SEARCHMETHOD orders2(

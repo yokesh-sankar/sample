@@ -1,0 +1,44 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC my_events
+    FOLDER = '/demo'
+    DATASOURCENAME=demo
+    SCHEMANAME = '${databases.denodo_training.folder.demo.views.jdbc.my_events.SCHEMANAME}'
+    RELATIONNAME='MY_EVENTS' 
+    OUTPUTSCHEMA (
+        event_id = 'EVENT_ID' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        event_name = 'EVENT_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='255', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE,
+        location = 'LOCATION' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='255', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE,
+        start_date = 'START_DATE' :'java.time.LocalDateTime' (OPT) (sourcetyperadix='10', sourcetypesize='7', sourcetypeid='93', sourcetypename='DATE')  NOT NULL SORTABLE,
+        end_date = 'END_DATE' :'java.time.LocalDateTime' (OPT) (sourcetyperadix='10', sourcetypesize='7', sourcetypeid='93', sourcetypename='DATE')  NOT NULL SORTABLE
+    )
+    CONSTRAINT 'SYS_C007513' PRIMARY KEY ( 'EVENT_ID' )
+    INDEX 'SYS_C007513' CLUSTER UNIQUE PRIMARY ( 'EVENT_ID' );
+
+CREATE OR REPLACE TABLE my_events I18N us_pst (
+        event_id:decimal (sourcetyperadix = '10', sourcetypeid = '3'), 
+        event_name:text (sourcetyperadix = '10', sourcetypesize = '255', sourcetypeid = '12'), 
+        location:text (sourcetyperadix = '10', sourcetypesize = '255', sourcetypeid = '12'), 
+        start_date:timestamp (sourcetyperadix = '10', sourcetypesize = '7', sourcetypeid = '93'), 
+        end_date:timestamp (sourcetyperadix = '10', sourcetypesize = '7', sourcetypeid = '93')
+    )
+    FOLDER = '/demo'
+    CONSTRAINT 'SYS_C007513' PRIMARY KEY ( 'event_id' )
+    CACHE PARTIAL
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD my_events(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD event_id (any) OPT ANY
+             ADD event_name (any) OPT ANY
+             ADD location (any) OPT ANY
+             ADD start_date (any) OPT ANY
+             ADD end_date (any) OPT ANY
+        )
+        OUTPUTLIST (end_date, event_id, event_name, location, start_date
+        )
+        WRAPPER (jdbc my_events)
+    )
+    DECLARE CACHE INDEX index1 ON (event_id, event_name)
+    DECLARE CACHE INDEX index2 ON (start_date, end_date);
+

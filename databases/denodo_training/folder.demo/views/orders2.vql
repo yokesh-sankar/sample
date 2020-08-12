@@ -1,0 +1,37 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC orders2
+    FOLDER = '/demo'
+    DATASOURCENAME=demo
+    SCHEMANAME = '${databases.denodo_training.folder.demo.views.jdbc.orders2.SCHEMANAME}'
+    RELATIONNAME='ORDERS2' 
+    OUTPUTSCHEMA (
+        orderid = 'ORDERID' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        ordernumber = 'ORDERNUMBER' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        personid = 'PERSONID' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE
+    )
+    CONSTRAINT 'SYS_C007448' PRIMARY KEY ( 'ORDERID' )
+    CONSTRAINT 'SYS_C007449' FOREIGN KEY ( 'PERSONID' ) 
+    REFERENCES 'TECHIE'.'PERSONS'( 'PERSONID' )  ON DELETE RESTRICT NOT DEFERRABLE 
+    INDEX 'SYS_C007448' CLUSTER UNIQUE PRIMARY ( 'ORDERID' );
+
+CREATE OR REPLACE TABLE orders2 I18N us_pst (
+        orderid:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '38', sourcetypeid = '3'), 
+        ordernumber:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '38', sourcetypeid = '3'), 
+        personid:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '38', sourcetypeid = '3')
+    )
+    FOLDER = '/demo'
+    CONSTRAINT 'SYS_C007448' PRIMARY KEY ( 'orderid' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD orders2(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD orderid (any) OPT ANY
+             ADD ordernumber (any) OPT ANY
+             ADD personid (any) OPT ANY
+        )
+        OUTPUTLIST (orderid, ordernumber, personid
+        )
+        WRAPPER (jdbc orders2)
+    );
+

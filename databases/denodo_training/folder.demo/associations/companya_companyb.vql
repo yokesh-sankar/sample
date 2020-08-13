@@ -1,0 +1,9 @@
+﻿CREATE OR REPLACE ASSOCIATION companya_companyb
+FOLDER = '/demo'
+    ENDPOINT relation1 companya (0,*)
+    ENDPOINT relation2 companyb (0,*)
+    ADD MAPPING id=id;
+
+ALTER ASSOCIATION companya_companyb
+ LAYOUT (companya = [20, 20, 200, 126], companyb = [603, 237, 200, 126]);
+

@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW count_companya FOLDER = '/demo' AS SELECT dept AS dept, count(id) AS count FROM companya GROUP BY dept;
+
+ALTER VIEW count_companya
+ LAYOUT (companya = [20, 20, 200, 126]);
+

@@ -1,0 +1,17 @@
+﻿CREATE OR REPLACE TABLE ds_invoices_0 I18N us_pst (
+        invoicesof_0:text (sourcetypeid = '12'), 
+        feb:text (sourcetypeid = '12')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD " ds_invoices"(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD invoicesof_0 (any) OPT ANY
+             ADD feb (any) OPT ANY
+        )
+        OUTPUTLIST (feb, invoicesof_0
+        )
+        WRAPPER (custom " ds_invoices")
+    );
+

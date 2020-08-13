@@ -1,0 +1,9 @@
+﻿CREATE OR REPLACE ASSOCIATION orders2_persons
+FOLDER = '/demo'
+    ENDPOINT person orders2 (1)
+    ENDPOINT employee persons (0,*)
+    ADD MAPPING personid=personid;
+
+ALTER ASSOCIATION orders2_persons
+ LAYOUT (orders2 = [20, 20, 300, 99], persons = [610, 340, 440, 119]);
+

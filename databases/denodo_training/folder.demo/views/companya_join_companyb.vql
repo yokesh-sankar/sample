@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW companya_join_companyb FOLDER = '/demo' AS SELECT companya.id AS id, companya.name AS name, companya.dept AS dept, companya.city AS city, companya.postalcode AS postalcode, companyb.id AS id2, companyb.name AS name3, companyb.dept AS dept3, companyb.city AS city3, companyb.postalcode AS postalcode3 FROM companya AS companya INNER JOIN companyb AS companyb ON companya.id = companyb.id ;
+
+ALTER VIEW companya_join_companyb
+ LAYOUT (companya = [20, 20, 200, 126], companyb = [732, 196, 200, 126]);
+

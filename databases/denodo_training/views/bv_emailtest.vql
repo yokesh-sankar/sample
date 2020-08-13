@@ -1,0 +1,22 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_emailtest
+    DATASOURCENAME=ds_web_orders
+    SQLSENTENCE='select email from customer'   
+    OUTPUTSCHEMA (
+        email = 'EMAIL' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE TABLE bv_emailtest I18N us_pst (
+        email:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_emailtest(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD email NOS ZERO ()
+        )
+        OUTPUTLIST (email
+        )
+        WRAPPER (jdbc bv_emailtest)
+    );
+

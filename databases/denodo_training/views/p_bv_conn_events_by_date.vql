@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW p_bv_conn_events_by_date AS SELECT bv_conn_events_by_date.event_date AS event_date, bv_conn_events_by_date.source_ip AS source_ip, bv_conn_events_by_date.device AS device, bv_conn_events_by_date.path AS path FROM bv_conn_events_by_date;
+
+ALTER VIEW p_bv_conn_events_by_date
+ LAYOUT (bv_conn_events_by_date = [20, 20, 207, 105]);
+

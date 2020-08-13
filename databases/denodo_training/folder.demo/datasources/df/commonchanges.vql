@@ -1,0 +1,8 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE DF commonchanges
+    FOLDER = '/demo'
+    ROUTE LOCAL 'LocalConnection' '${databases.denodo_training.folder.demo.datasources.df.commonchanges.ROUTE.LOCAL.PATH}'
+    COLUMNDELIMITER = ','
+    ENDOFLINEDELIMITER = '\n'
+    HEADER = TRUE;
+

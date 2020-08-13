@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW persons_j_orders2 FOLDER = '/demo' AS SELECT persons.personid AS personid, persons.firstname AS firstname, persons.lastname AS lastname, persons.age AS age, orders2.orderid AS orderid, orders2.ordernumber AS ordernumber, orders2.personid AS personid2 FROM persons AS persons INNER JOIN orders2 AS orders2 ON persons.personid = orders2.personid ;
+
+ALTER VIEW persons_j_orders2
+ LAYOUT (persons = [20, 20, 200, 106], orders2 = [414, 259, 200, 86]);
+

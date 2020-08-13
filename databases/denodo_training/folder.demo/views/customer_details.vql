@@ -1,0 +1,42 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC customer_details
+    FOLDER = '/demo'
+    DATASOURCENAME=demo
+    SCHEMANAME = '${databases.denodo_training.folder.demo.views.jdbc.customer_details.SCHEMANAME}'
+    RELATIONNAME='CUSTOMER_DETAILS' 
+    OUTPUTSCHEMA (
+        customer_id = 'CUSTOMER_ID' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        customer_name = 'CUSTOMER_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='255', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE,
+        location = 'LOCATION' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='255', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE,
+        created_date = 'CREATED_DATE' :'java.time.LocalDateTime' (OPT) (sourcetyperadix='10', sourcetypesize='7', sourcetypeid='93', sourcetypename='DATE')  NOT NULL SORTABLE,
+        modified_date = 'MODIFIED_DATE' :'java.time.LocalDateTime' (OPT) (sourcetyperadix='10', sourcetypesize='7', sourcetypeid='93', sourcetypename='DATE')  NOT NULL SORTABLE
+    )
+    CONSTRAINT 'SYS_C007518' PRIMARY KEY ( 'CUSTOMER_ID' )
+    INDEX 'SYS_C007518' CLUSTER UNIQUE PRIMARY ( 'CUSTOMER_ID' );
+
+CREATE OR REPLACE TABLE customer_details I18N us_pst (
+        customer_id:decimal (sourcetyperadix = '10', sourcetypeid = '3'), 
+        customer_name:text (sourcetyperadix = '10', sourcetypesize = '255', sourcetypeid = '12'), 
+        location:text (sourcetyperadix = '10', sourcetypesize = '255', sourcetypeid = '12'), 
+        created_date:timestamp (sourcetyperadix = '10', sourcetypesize = '7', sourcetypeid = '93'), 
+        modified_date:timestamp (sourcetyperadix = '10', sourcetypesize = '7', sourcetypeid = '93')
+    )
+    FOLDER = '/demo'
+    CONSTRAINT 'SYS_C007518' PRIMARY KEY ( 'customer_id' )
+    CACHE FULL INCREMENTAL 'modified_date <> cast(''@LASTCACHEREFRESH'' AS TIMESTAMP)'
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD customer_details(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD customer_id (any) OPT ANY
+             ADD customer_name (any) OPT ANY
+             ADD location (any) OPT ANY
+             ADD created_date (any) OPT ANY
+             ADD modified_date (any) OPT ANY
+        )
+        OUTPUTLIST (created_date, customer_id, customer_name, location, modified_date
+        )
+        WRAPPER (jdbc customer_details)
+    );
+

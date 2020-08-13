@@ -1,0 +1,13 @@
+﻿CREATE OR REPLACE INTERFACE VIEW i_companyb (
+        id:int (sourcetypedecimals = '0', sourcetypesize = '38', sourcetypeid = '3'),
+        name:text (sourcetypedecimals = '0', sourcetypesize = '100', sourcetypeid = '12'),
+        dept:text (sourcetypedecimals = '0', sourcetypesize = '100', sourcetypeid = '12'),
+        city:text (sourcetypedecimals = '0', sourcetypesize = '100', sourcetypeid = '12'),
+        postalcode:int (sourcetypedecimals = '0', sourcetypesize = '38', sourcetypeid = '3')
+    )
+    SET IMPLEMENTATION companyb
+    FOLDER = '/demo';
+
+ALTER VIEW i_companyb
+ LAYOUT (companyb = [622, 221, 200, 126]);
+

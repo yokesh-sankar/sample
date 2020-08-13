@@ -1,0 +1,39 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC delivery
+    DATASOURCENAME=ds_web_orders
+    SCHEMANAME = '${databases.denodo_training.views.jdbc.delivery.SCHEMANAME}'
+    RELATIONNAME='DELIVERY' 
+    OUTPUTSCHEMA (
+        id = 'ID' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        order_item_id = 'ORDER_ITEM_ID' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        date_sent = 'DATE_SENT' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='6', sourcetyperadix='10', sourcetypesize='11', sourcetypeid='93', sourcetypename='TIMESTAMP(6)')  SORTABLE,
+        date_received = 'DATE_RECEIVED' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='6', sourcetyperadix='10', sourcetypesize='11', sourcetypeid='93', sourcetypename='TIMESTAMP(6)')  SORTABLE,
+        status = 'STATUS' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE
+    )
+    CONSTRAINT 'DELIVERY_PK' PRIMARY KEY ( 'ID' )
+    INDEX 'DELIVERY_PK' CLUSTER UNIQUE PRIMARY ( 'ID' );
+
+CREATE OR REPLACE TABLE bv_wo_delivery I18N us_pst (
+        id:decimal (sourcetyperadix = '10', sourcetypeid = '3'), 
+        order_item_id:decimal (sourcetyperadix = '10', sourcetypeid = '3'), 
+        date_sent:timestamp (sourcetypedecimals = '6', sourcetyperadix = '10', sourcetypesize = '11', sourcetypeid = '93'), 
+        date_received:timestamp (sourcetypedecimals = '6', sourcetyperadix = '10', sourcetypesize = '11', sourcetypeid = '93'), 
+        status:text (sourcetyperadix = '10', sourcetypesize = '50', sourcetypeid = '12')
+    )
+    CONSTRAINT 'DELIVERY_PK' PRIMARY KEY ( 'id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD delivery(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD id (any) OPT ANY
+             ADD order_item_id (any) OPT ANY
+             ADD date_sent (any) OPT ANY
+             ADD date_received (any) OPT ANY
+             ADD status (any) OPT ANY
+        )
+        OUTPUTLIST (date_received, date_sent, id, order_item_id, status
+        )
+        WRAPPER (jdbc delivery)
+    );
+

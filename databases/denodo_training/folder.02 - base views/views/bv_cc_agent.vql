@@ -1,0 +1,30 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_cc_agent
+    FOLDER = '/02 - base views'
+    DATASOURCENAME=ds_call_center
+    SQLSENTENCE='select * from agent'   
+    OUTPUTSCHEMA (
+        agent_id = 'AGENT_ID' :'java.math.BigDecimal' (sourcetypedecimals='0', sourcetypesize='22', sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL SORTABLE NOT UPDATEABLE,
+        agent_code = 'AGENT_CODE' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE NOT UPDATEABLE,
+        agent_name = 'AGENT_NAME' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE TABLE bv_cc_agent I18N us_pst (
+        agent_id:decimal (sourcetypedecimals = '0', sourcetypesize = '22', sourcetypeid = '3'), 
+        agent_code:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12'), 
+        agent_name:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12')
+    )
+    FOLDER = '/02 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_cc_agent(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD agent_id NOS ZERO ()
+             ADD agent_code NOS ZERO ()
+             ADD agent_name NOS ZERO ()
+        )
+        OUTPUTLIST (agent_code, agent_id, agent_name
+        )
+        WRAPPER (jdbc bv_cc_agent)
+    );
+

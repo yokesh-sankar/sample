@@ -1,0 +1,32 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC companyc
+    FOLDER = '/demo'
+    DATASOURCENAME=demo
+    SCHEMANAME = '${databases.denodo_training.folder.demo.views.jdbc.companyc.SCHEMANAME}'
+    RELATIONNAME='COMPANYC' 
+    OUTPUTSCHEMA (
+        id = 'ID' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        name = 'NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='100', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        perfomance = 'PERFOMANCE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE companyc I18N us_pst (
+        id:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '38', sourcetypeid = '3'), 
+        name:text (sourcetyperadix = '10', sourcetypesize = '100', sourcetypeid = '12'), 
+        perfomance:text (sourcetyperadix = '10', sourcetypesize = '50', sourcetypeid = '12')
+    )
+    FOLDER = '/demo'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD companyc(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD id (any) OPT ANY
+             ADD name (any) OPT ANY
+             ADD perfomance (any) OPT ANY
+        )
+        OUTPUTLIST (id, name, perfomance
+        )
+        WRAPPER (jdbc companyc)
+    );
+

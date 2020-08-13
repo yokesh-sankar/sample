@@ -1,0 +1,55 @@
+﻿CREATE OR REPLACE WRAPPER WS getallcategories_4384
+    FOLDER = '/05 - final views'
+    DATASOURCENAME=ds_product
+    SERVICENAME='products-ws'
+    PORTNAME='ProductImplPort'
+    OPERATIONNAME='getAllCategories'
+    INPUTMESSAGE='getAllCategories'
+    OUTPUTMESSAGE='getAllCategoriesResponse'
+    TUPLEROOT='/Envelope/Body/getAllCategoriesResponse'
+    FROMEXAMPLE
+    OUTPUTSCHEMA (
+    parameters = '$$0': REGISTER OF (
+        mode='mode' (OBL)
+    ),
+    categories = 'Envelope.Body.getAllCategoriesResponse.categories': REGISTER OF (
+        category = 'category': ARRAY OF (
+            category = 'category': REGISTER OF (
+                categoryid='categoryId',
+                categoryname='categoryName'
+            )
+        )
+    )
+    );
+
+CREATE OR REPLACE TYPE getallcategories_parameters AS REGISTER OF (mode:text);
+
+CREATE OR REPLACE TYPE getallcategories_categories_category_category AS REGISTER OF (categoryid:int, categoryname:text);
+
+CREATE OR REPLACE TYPE getallcategories_categories_category AS ARRAY OF getallcategories_categories_category_category;
+
+CREATE OR REPLACE TYPE getallcategories_categories AS REGISTER OF (category:getallcategories_categories_category);
+
+CREATE OR REPLACE TABLE getallcategories I18N us_pst (
+        parameters:getallcategories_parameters, 
+        categories:getallcategories_categories
+    )
+    FOLDER = '/05 - final views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD getallcategories(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD parameters (=,is null) OPT ONE
+             ADD parameters.mode (=) OBL ONE
+             ADD categories NOS ZERO ()
+             ADD categories.category NOS ZERO ()
+             ADD categories.category NOS ZERO ()
+             ADD categories.category.categoryid NOS ZERO ()
+             ADD categories.category.categoryname NOS ZERO ()
+        )
+        OUTPUTLIST (categories, parameters
+        )
+        WRAPPER (ws getallcategories_4384)
+    );
+

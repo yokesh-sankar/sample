@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW companya_u_companyb FOLDER = '/demo' AS SELECT id, name, dept, city, postalcode FROM (SELECT * FROM companya UNION SELECT city, id, dept, postalcode, name FROM companyb);
+
+ALTER VIEW companya_u_companyb
+ LAYOUT (companya = [20, 20, 200, 126], companyb = [413, 109, 200, 126]);
+

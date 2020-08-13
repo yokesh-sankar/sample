@@ -1,0 +1,38 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC persons
+    FOLDER = '/demo'
+    DATASOURCENAME=demo
+    SCHEMANAME = '${databases.denodo_training.folder.demo.views.jdbc.persons.SCHEMANAME}'
+    RELATIONNAME='PERSONS' 
+    OUTPUTSCHEMA (
+        personid = 'PERSONID' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        firstname = 'FIRSTNAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE,
+        lastname = 'LASTNAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE,
+        age = 'AGE' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE
+    )
+    CONSTRAINT 'SYS_C007445' PRIMARY KEY ( 'PERSONID' )
+    INDEX 'SYS_C007445' CLUSTER UNIQUE PRIMARY ( 'PERSONID' );
+
+CREATE OR REPLACE TABLE persons I18N us_pst (
+        personid:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '38', sourcetypeid = '3'), 
+        firstname:text (sourcetyperadix = '10', sourcetypesize = '50', sourcetypeid = '12'), 
+        lastname:text (sourcetyperadix = '10', sourcetypesize = '50', sourcetypeid = '12'), 
+        age:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '38', sourcetypeid = '3')
+    )
+    FOLDER = '/demo'
+    PRIMARY KEY ( 'lastname' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD persons(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD personid (any) OPT ANY
+             ADD firstname (any) OPT ANY
+             ADD lastname (any) OPT ANY
+             ADD age (any) OPT ANY
+        )
+        OUTPUTLIST (age, firstname, lastname, personid
+        )
+        WRAPPER (jdbc persons)
+    );
+

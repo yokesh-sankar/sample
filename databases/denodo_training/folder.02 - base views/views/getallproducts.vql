@@ -1,0 +1,49 @@
+﻿CREATE OR REPLACE WRAPPER WS getallproducts
+    FOLDER = '/02 - base views'
+    DATASOURCENAME=ds_product
+    SERVICENAME='products-ws'
+    PORTNAME='ProductImplPort'
+    OPERATIONNAME='getAllProducts'
+    INPUTMESSAGE='getAllProducts'
+    OUTPUTMESSAGE='getAllProductsResponse'
+    OUTPUTSCHEMA (
+    parameters = '$$0': REGISTER OF (
+    ),
+    return = '$$$$': REGISTER OF (
+        products = 'products': ARRAY OF (
+            productdata = 'ProductData': REGISTER OF (
+                productid='productId',
+                productname='productName',
+                productprice='productPrice'
+            )
+        )
+    )
+    );
+
+CREATE OR REPLACE TYPE getallproducts_return_products_productdata AS REGISTER OF (productid:int, productname:text, productprice:float);
+
+CREATE OR REPLACE TYPE getallproducts_return_products AS ARRAY OF getallproducts_return_products_productdata;
+
+CREATE OR REPLACE TYPE getallproducts_return AS REGISTER OF (products:getallproducts_return_products);
+
+CREATE OR REPLACE TABLE getallproducts I18N us_pst (
+        return:getallproducts_return
+    )
+    FOLDER = '/02 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD getallproducts(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD return NOS ZERO ()
+             ADD return.products NOS ZERO ()
+             ADD return.products NOS ZERO ()
+             ADD return.products.productid NOS ZERO ()
+             ADD return.products.productname NOS ZERO ()
+             ADD return.products.productprice NOS ZERO ()
+        )
+        OUTPUTLIST (return
+        )
+        WRAPPER (ws getallproducts)
+    );
+

@@ -1,0 +1,164 @@
+﻿CREATE OR REPLACE WRAPPER DF commonchanges
+    FOLDER = '/demo'
+    DATASOURCENAME=commonchanges
+    OUTPUTSCHEMA (
+        id_no = 'ID_No' (OPT),
+        amount_period = 'Amount_Period' (OPT),
+        estimate_type = 'Estimate_Type' (OPT),
+        invoice_frequency = 'Invoice_Frequency' (OPT),
+        bill_day = 'Bill_Day' (OPT),
+        days_due = 'Days_Due' (OPT),
+        days_due_after_method = 'Days_Due_After_Method' (OPT),
+        bill_jan = 'Bill_Jan' (OPT),
+        bill_feb = 'Bill_Feb' (OPT),
+        bill_mar = 'Bill_Mar' (OPT),
+        bill_apr = 'Bill_Apr' (OPT),
+        bill_may = 'Bill_May' (OPT),
+        bill_jun = 'Bill_Jun' (OPT),
+        bill_jul = 'Bill_Jul' (OPT),
+        bill_aug = 'Bill_Aug' (OPT),
+        bill_sep = 'Bill_Sep' (OPT),
+        bill_oct = 'Bill_Oct' (OPT),
+        bill_nov = 'Bill_Nov' (OPT),
+        bill_dec = 'Bill_Dec' (OPT),
+        last_day_of_period = 'Last_Day_Of_Period' (OPT),
+        subject_to_late_fee = 'Subject_To_Late_Fee' (OPT),
+        ninety_day_due_date = 'Ninety_Day_Due_Date' (OPT),
+        rent_increase_type = 'Rent_Increase_Type' (OPT),
+        index_interval = 'Index_Interval' (OPT),
+        number_of_months_before_index_month = 'Number_Of_Months_Before_Index_Month' (OPT),
+        next_increase_interval = 'Next_Increase_Interval' (OPT),
+        next_increase_date_after = 'Next_Increase_Date_After' (OPT),
+        check_annually = 'Check_Annually' (OPT),
+        increase_as_point = 'Increase_As_Point' (OPT),
+        step_indexation = 'Step_Indexation' (OPT),
+        rounding = 'Rounding' (OPT),
+        scandinavian_indexation = 'Scandinavian_Indexation' (OPT),
+        proration_method = 'Proration_Method' (OPT),
+        method_of_payment = 'Method_Of_Payment' (OPT),
+        taxpoint_day = 'TaxPoint_Day' (OPT),
+        bill_in_arrears = 'Bill_In_Arrears' (OPT),
+        set_invoice_date_to_due_date = 'Set_Invoice_Date_To_Due_Date' (OPT),
+        suppress_paper_invoice = 'Suppress_Paper_Invoice' (OPT),
+        print_invoice_on_change = 'Print_Invoice_On_Change' (OPT),
+        invoice_is_leasecurrency = 'Invoice_Is_LeaseCurrency' (OPT),
+        vat_currency_is_local = 'Vat_Currency_Is_Local' (OPT),
+        payment_schedule = 'Payment_Schedule' (OPT),
+        rate_provider = 'Rate_Provider' (OPT),
+        rate_type = 'Rate_Type' (OPT),
+        do_not_bill = 'Do_Not_Bill' (OPT),
+        charge_on_unpaid = 'Charge_On_Unpaid' (OPT),
+        amendment_type = 'Amendment_Type' (OPT),
+        amendment_sequence = 'Amendment_Sequence' (OPT)
+    );
+
+CREATE OR REPLACE TABLE commonchanges I18N us_pst (
+        id_no:text, 
+        amount_period:text, 
+        estimate_type:text, 
+        invoice_frequency:text, 
+        bill_day:text, 
+        days_due:text, 
+        days_due_after_method:text, 
+        bill_jan:text, 
+        bill_feb:text, 
+        bill_mar:text, 
+        bill_apr:text, 
+        bill_may:text, 
+        bill_jun:text, 
+        bill_jul:text, 
+        bill_aug:text, 
+        bill_sep:text, 
+        bill_oct:text, 
+        bill_nov:text, 
+        bill_dec:text, 
+        last_day_of_period:text, 
+        subject_to_late_fee:text, 
+        ninety_day_due_date:text, 
+        rent_increase_type:text, 
+        index_interval:text, 
+        number_of_months_before_index_month:text, 
+        next_increase_interval:text, 
+        next_increase_date_after:text, 
+        check_annually:text, 
+        increase_as_point:text, 
+        step_indexation:text, 
+        rounding:text, 
+        scandinavian_indexation:text, 
+        proration_method:text, 
+        method_of_payment:text, 
+        taxpoint_day:text, 
+        bill_in_arrears:text, 
+        set_invoice_date_to_due_date:text, 
+        suppress_paper_invoice:text, 
+        print_invoice_on_change:text, 
+        invoice_is_leasecurrency:text, 
+        vat_currency_is_local:text, 
+        payment_schedule:text, 
+        rate_provider:text, 
+        rate_type:text, 
+        do_not_bill:text, 
+        charge_on_unpaid:text, 
+        amendment_type:text, 
+        amendment_sequence:text
+    )
+    FOLDER = '/demo'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD commonchanges(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD id_no (=,in) OPT ANY
+             ADD amount_period (=,in) OPT ANY
+             ADD estimate_type (=,in) OPT ANY
+             ADD invoice_frequency (=,in) OPT ANY
+             ADD bill_day (=,in) OPT ANY
+             ADD days_due (=,in) OPT ANY
+             ADD days_due_after_method (=,in) OPT ANY
+             ADD bill_jan (=,in) OPT ANY
+             ADD bill_feb (=,in) OPT ANY
+             ADD bill_mar (=,in) OPT ANY
+             ADD bill_apr (=,in) OPT ANY
+             ADD bill_may (=,in) OPT ANY
+             ADD bill_jun (=,in) OPT ANY
+             ADD bill_jul (=,in) OPT ANY
+             ADD bill_aug (=,in) OPT ANY
+             ADD bill_sep (=,in) OPT ANY
+             ADD bill_oct (=,in) OPT ANY
+             ADD bill_nov (=,in) OPT ANY
+             ADD bill_dec (=,in) OPT ANY
+             ADD last_day_of_period (=,in) OPT ANY
+             ADD subject_to_late_fee (=,in) OPT ANY
+             ADD ninety_day_due_date (=,in) OPT ANY
+             ADD rent_increase_type (=,in) OPT ANY
+             ADD index_interval (=,in) OPT ANY
+             ADD number_of_months_before_index_month (=,in) OPT ANY
+             ADD next_increase_interval (=,in) OPT ANY
+             ADD next_increase_date_after (=,in) OPT ANY
+             ADD check_annually (=,in) OPT ANY
+             ADD increase_as_point (=,in) OPT ANY
+             ADD step_indexation (=,in) OPT ANY
+             ADD rounding (=,in) OPT ANY
+             ADD scandinavian_indexation (=,in) OPT ANY
+             ADD proration_method (=,in) OPT ANY
+             ADD method_of_payment (=,in) OPT ANY
+             ADD taxpoint_day (=,in) OPT ANY
+             ADD bill_in_arrears (=,in) OPT ANY
+             ADD set_invoice_date_to_due_date (=,in) OPT ANY
+             ADD suppress_paper_invoice (=,in) OPT ANY
+             ADD print_invoice_on_change (=,in) OPT ANY
+             ADD invoice_is_leasecurrency (=,in) OPT ANY
+             ADD vat_currency_is_local (=,in) OPT ANY
+             ADD payment_schedule (=,in) OPT ANY
+             ADD rate_provider (=,in) OPT ANY
+             ADD rate_type (=,in) OPT ANY
+             ADD do_not_bill (=,in) OPT ANY
+             ADD charge_on_unpaid (=,in) OPT ANY
+             ADD amendment_type (=,in) OPT ANY
+             ADD amendment_sequence (=,in) OPT ANY
+        )
+        OUTPUTLIST (amendment_sequence, amendment_type, amount_period, bill_apr, bill_aug, bill_day, bill_dec, bill_feb, bill_in_arrears, bill_jan, bill_jul, bill_jun, bill_mar, bill_may, bill_nov, bill_oct, bill_sep, charge_on_unpaid, check_annually, days_due, days_due_after_method, do_not_bill, estimate_type, id_no, increase_as_point, index_interval, invoice_frequency, invoice_is_leasecurrency, last_day_of_period, method_of_payment, next_increase_date_after, next_increase_interval, ninety_day_due_date, number_of_months_before_index_month, payment_schedule, print_invoice_on_change, proration_method, rate_provider, rate_type, rent_increase_type, rounding, scandinavian_indexation, set_invoice_date_to_due_date, step_indexation, subject_to_late_fee, suppress_paper_invoice, taxpoint_day, vat_currency_is_local
+        )
+        WRAPPER (df commonchanges)
+    );
+

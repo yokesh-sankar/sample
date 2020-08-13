@@ -1,0 +1,30 @@
+﻿CREATE OR REPLACE WRAPPER DF ds_connections_3234
+    DATASOURCENAME=ds_connections
+    OUTPUTSCHEMA (
+        date = 'Column0' (OPT),
+        ip = 'Column1' (OPT),
+        brand = 'Column2' (OPT),
+        mauallocation = 'Column3' (OPT)
+    );
+
+CREATE OR REPLACE TABLE ds_connections I18N us_pst (
+        date:text, 
+        ip:text, 
+        brand:text, 
+        mauallocation:text
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_connections(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD date (=,in) OPT ANY
+             ADD ip (=,in) OPT ANY
+             ADD brand (=,in) OPT ANY
+             ADD mauallocation (=,in) OPT ANY
+        )
+        OUTPUTLIST (date, ip, brand, mauallocation
+        )
+        WRAPPER (df ds_connections_3234)
+    );
+

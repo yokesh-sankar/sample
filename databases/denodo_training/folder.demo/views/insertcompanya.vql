@@ -1,0 +1,44 @@
+﻿CREATE OR REPLACE WRAPPER WS insertcompanya
+    FOLDER = '/demo'
+    DATASOURCENAME=ws_companya
+    SERVICENAME='companyaService'
+    PORTNAME='companya'
+    OPERATIONNAME='insertCOMPANYA'
+    INPUTMESSAGE='insertCOMPANYARequest'
+    OUTPUTMESSAGE='insertCOMPANYAResponse'
+    OUTPUTSCHEMA (
+    insertcompanya = '$$0': REGISTER OF (
+        id='ID' (OBL),
+        name='NAME' (OBL),
+        dept='DEPT' (OBL),
+        city='CITY' (OBL),
+        postalcode='POSTALCODE' (OBL)
+    ),
+    return='$$$$'
+    );
+
+CREATE OR REPLACE TYPE insertcompanya_insertcompanya AS REGISTER OF (id:decimal, name:text, dept:text, city:text, postalcode:decimal);
+
+CREATE OR REPLACE TABLE insertcompanya I18N us_pst (
+        insertcompanya:insertcompanya_insertcompanya, 
+        return:long
+    )
+    FOLDER = '/demo'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD insertcompanya(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD insertcompanya (=,is null) OPT ONE
+             ADD insertcompanya.id (=) OBL ONE
+             ADD insertcompanya.name (=) OBL ONE
+             ADD insertcompanya.dept (=) OBL ONE
+             ADD insertcompanya.city (=) OBL ONE
+             ADD insertcompanya.postalcode (=) OBL ONE
+             ADD return NOS ZERO ()
+        )
+        OUTPUTLIST (insertcompanya, return
+        )
+        WRAPPER (ws insertcompanya)
+    );
+

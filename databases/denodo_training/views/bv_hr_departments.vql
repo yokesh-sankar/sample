@@ -1,0 +1,39 @@
+﻿CREATE OR REPLACE WRAPPER JDBC departments
+    DATASOURCENAME=ds_human_resources
+    RELATIONNAME='DEPARTMENTS' 
+    OUTPUTSCHEMA (
+        department_id = 'DEPARTMENT_ID' :'java.lang.Double' (OPT) (sourcetypedecimals='10', sourcetyperadix='10', sourcetypesize='2000000000', sourcetypeid='6', sourcetypename='NUMBER(4)')  NOT NULL NOT SORTABLE,
+        department_name = 'DEPARTMENT_NAME' :'java.lang.String' (OPT) (sourcetypedecimals='10', sourcetyperadix='10', sourcetypesize='2000000000', sourcetypeid='12', sourcetypename='VARCHAR2(30)')  NOT NULL NOT SORTABLE,
+        location_id = 'LOCATION_ID' :'java.lang.Double' (OPT) (sourcetypedecimals='10', sourcetyperadix='10', sourcetypesize='2000000000', sourcetypeid='6', sourcetypename='NUMBER(4)')  NOT SORTABLE,
+        manager_id = 'MANAGER_ID' :'java.lang.Double' (OPT) (sourcetypedecimals='10', sourcetyperadix='10', sourcetypesize='2000000000', sourcetypeid='6', sourcetypename='NUMBER(6)')  NOT SORTABLE
+    )
+    CONSTRAINT 'DEPT_ID_PK' PRIMARY KEY ( 'DEPARTMENT_ID' )
+    FOREIGN KEY ( 'MANAGER_ID' ) 
+    REFERENCES 'EMPLOYEES'( 'EMPLOYEE_ID' )  ON UPDATE NO ACTION  ON DELETE NO ACTION INITIALLY DEFERRED 
+    CONSTRAINT 'DEPT_LOC_FK' FOREIGN KEY ( 'LOCATION_ID' ) 
+    REFERENCES 'LOCATIONS'( 'LOCATION_ID' )  ON UPDATE NO ACTION  ON DELETE NO ACTION INITIALLY DEFERRED 
+    INDEX 'sqlite_autoindex_DEPARTMENTS_1' OTHER UNIQUE PRIMARY ( 'DEPARTMENT_ID' );
+
+CREATE OR REPLACE TABLE bv_hr_departments I18N us_pst (
+        department_id:double (sourcetypedecimals = '10', sourcetyperadix = '10', sourcetypesize = '2000000000', sourcetypeid = '6', description = 'baseview
+'), 
+        department_name:text (sourcetypedecimals = '10', sourcetyperadix = '10', sourcetypesize = '2000000000', sourcetypeid = '12'), 
+        location_id:double (sourcetypedecimals = '10', sourcetyperadix = '10', sourcetypesize = '2000000000', sourcetypeid = '6'), 
+        manager_id:double (sourcetypedecimals = '10', sourcetyperadix = '10', sourcetypesize = '2000000000', sourcetypeid = '6')
+    )
+    CONSTRAINT 'DEPT_ID_PK' PRIMARY KEY ( 'department_id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD departments(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD department_id (any) OPT ANY
+             ADD department_name (any) OPT ANY
+             ADD location_id (any) OPT ANY
+             ADD manager_id (any) OPT ANY
+        )
+        OUTPUTLIST (department_id, department_name, location_id, manager_id
+        )
+        WRAPPER (jdbc departments)
+    );
+

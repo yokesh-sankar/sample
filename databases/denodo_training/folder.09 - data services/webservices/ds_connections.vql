@@ -1,0 +1,40 @@
+﻿CREATE OR REPLACE SOAP WEBSERVICE ds_connections
+    CONNECTION (
+        CHUNKSIZE = 1000
+        CHUNKTIMEOUT = 90000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    I18N  = us_pst
+    DATETYPEMAPPING DATE
+    NOWRAPARRAYS
+    RAISEFAULTONIDU
+    DONOTAPPLYOUTPUTXSLTTOERRORS
+    OUTPUT 
+        ( STYLE DOCUMENT )
+    OPERATION 'getDS_CONNECTIONSByDATEAndIPAndBRANDAndMAUALLOCATION' (
+        TYPE SELECT
+        SCHEMA VIEW ds_connections
+        VQL = 'SELECT date, ip, brand, mauallocation FROM denodo_training.ds_connections ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''us_pst''^ExecuteIfIsNotNull(", ",@VERBOSEERRORS,"")^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'GetDS_CONNECTIONSByDATEAndIPAndBRANDAndMAUALLOCATION' (
+            'DATE' date:'text' '=' 
+            'IP' ip:'text' '=' 
+            'BRAND' brand:'text' '=' 
+            'MAUALLOCATION' mauallocation:'text' '=' 
+        )
+        OUTPUT 
+            'DS_CONNECTIONSReturn': Array of ( 'DS_CONNECTIONSReturnRow': Register of (
+                date : 'text',
+                ip : 'text',
+                brand : 'text',
+                mauallocation : 'text'
+            ) (
+                    '/brand'='BRAND',
+                    '/date'='DATE',
+                    '/ip'='IP',
+                    '/mauallocation'='MAUALLOCATION'))
+    )
+    FOLDER = '/09 - data services';
+

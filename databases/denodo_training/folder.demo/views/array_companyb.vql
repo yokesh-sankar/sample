@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW array_companyb FOLDER = '/demo' AS SELECT id AS id, nest(city, postalcode) AS location FROM companyb GROUP BY id;
+
+ALTER VIEW array_companyb
+ LAYOUT (companyb = [20, 20, 200, 126]);
+

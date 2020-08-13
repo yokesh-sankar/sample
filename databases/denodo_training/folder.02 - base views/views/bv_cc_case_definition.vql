@@ -1,0 +1,42 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_cc_case_definition
+    FOLDER = '/02 - base views'
+    DATASOURCENAME=ds_call_center
+    SQLSENTENCE='select * from case_definition'   
+    OUTPUTSCHEMA (
+        case_id = 'CASE_ID' :'java.math.BigDecimal' (sourcetypedecimals='0', sourcetypesize='22', sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL SORTABLE NOT UPDATEABLE,
+        date_raised = 'DATE_RAISED' :'java.time.LocalDateTime' (sourcetypedecimals='6', sourcetypesize='0', sourcetypeid='93', sourcetypename='TIMESTAMP')  SORTABLE NOT UPDATEABLE,
+        date_closed = 'DATE_CLOSED' :'java.time.LocalDateTime' (sourcetypedecimals='6', sourcetypesize='0', sourcetypeid='93', sourcetypename='TIMESTAMP')  SORTABLE NOT UPDATEABLE,
+        case_status = 'CASE_STATUS' :'java.math.BigDecimal' (sourcetypedecimals='0', sourcetypesize='22', sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL SORTABLE NOT UPDATEABLE,
+        case_summary = 'CASE_SUMMARY' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        case_comments = 'CASE_COMMENTS' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE NOT UPDATEABLE,
+        customer_code = 'CUSTOMER_CODE' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE TABLE bv_cc_case_definition I18N us_pst (
+        case_id:decimal (sourcetypedecimals = '0', sourcetypesize = '22', sourcetypeid = '3'), 
+        date_raised:timestamp (sourcetypedecimals = '6', sourcetypesize = '0', sourcetypeid = '93'), 
+        date_closed:timestamp (sourcetypedecimals = '6', sourcetypesize = '0', sourcetypeid = '93'), 
+        case_status:decimal (sourcetypedecimals = '0', sourcetypesize = '22', sourcetypeid = '3'), 
+        case_summary:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12'), 
+        case_comments:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12'), 
+        customer_code:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12')
+    )
+    FOLDER = '/02 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_cc_case_definition(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD case_id NOS ZERO ()
+             ADD date_raised NOS ZERO ()
+             ADD date_closed NOS ZERO ()
+             ADD case_status NOS ZERO ()
+             ADD case_summary NOS ZERO ()
+             ADD case_comments NOS ZERO ()
+             ADD customer_code NOS ZERO ()
+        )
+        OUTPUTLIST (case_comments, case_id, case_status, case_summary, customer_code, date_closed, date_raised
+        )
+        WRAPPER (jdbc bv_cc_case_definition)
+    );
+

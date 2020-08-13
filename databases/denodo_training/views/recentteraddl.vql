@@ -1,0 +1,114 @@
+﻿CREATE OR REPLACE WRAPPER DF recentteraddl
+    DATASOURCENAME=recentteraddl
+    OUTPUTSCHEMA (
+        databasename_0 = '"DatabaseName"' (OPT),
+        tablename_0 = '"TableName"' (OPT),
+        version_0 = '"""Version"""' (OPT),
+        tablekind_0 = '"TableKind"' (OPT),
+        protectiontype_0 = '"ProtectionType"' (OPT),
+        journalflag_0 = '"JournalFlag"' (OPT),
+        creatorname_0 = '"CreatorName"' (OPT),
+        requesttext_0 = '"RequestText"' (OPT),
+        commentstring_0 = '"CommentString"' (OPT),
+        parentcount_0 = '"ParentCount"' (OPT),
+        childcount_0 = '"ChildCount"' (OPT),
+        namedtblcheckcount_0 = '"NamedTblCheckCount"' (OPT),
+        unnamedtblcheckexist_0 = '"UnnamedTblCheckExist"' (OPT),
+        primarykeyindexid_0 = '"PrimaryKeyIndexId"' (OPT),
+        repstatus_0 = '"RepStatus"' (OPT),
+        createtimestamp_0 = '"CreateTimeStamp"' (OPT),
+        lastaltername_0 = '"LastAlterName"' (OPT),
+        lastaltertimestamp_0 = '"LastAlterTimeStamp"' (OPT),
+        requesttxtoverflow_0 = '"RequestTxtOverflow"' (OPT),
+        accesscount_0 = '"AccessCount"' (OPT),
+        lastaccesstimestamp_0 = '"LastAccessTimeStamp"' (OPT),
+        utilversion_0 = '"UtilVersion"' (OPT),
+        queueflag_0 = '"QueueFlag"' (OPT),
+        commitopt_0 = '"CommitOpt"' (OPT),
+        translog_0 = '"TransLog"' (OPT),
+        checkopt_0 = '"CheckOpt"' (OPT),
+        temporalproperty_0 = '"TemporalProperty"' (OPT),
+        resolvedcurrent_date_0 = '"ResolvedCurrent_Date"' (OPT),
+        resolvedcurrent_timestamp_0 = '"ResolvedCurrent_Timestamp"' (OPT),
+        systemdefinedji_0 = '"SystemDefinedJI"' (OPT),
+        vtqualifier_0 = '"VTQualifier"' (OPT),
+        ttqualifier_0 = '"TTQualifier"' (OPT)
+    );
+
+CREATE OR REPLACE TABLE recentteraddl I18N us_pst (
+        databasename_0:text, 
+        tablename_0:text, 
+        version_0:text, 
+        tablekind_0:text, 
+        protectiontype_0:text, 
+        journalflag_0:text, 
+        creatorname_0:text, 
+        requesttext_0:text, 
+        commentstring_0:text, 
+        parentcount_0:text, 
+        childcount_0:text, 
+        namedtblcheckcount_0:text, 
+        unnamedtblcheckexist_0:text, 
+        primarykeyindexid_0:text, 
+        repstatus_0:text, 
+        createtimestamp_0:text, 
+        lastaltername_0:text, 
+        lastaltertimestamp_0:text, 
+        requesttxtoverflow_0:text, 
+        accesscount_0:text, 
+        lastaccesstimestamp_0:text, 
+        utilversion_0:text, 
+        queueflag_0:text, 
+        commitopt_0:text, 
+        translog_0:text, 
+        checkopt_0:text, 
+        temporalproperty_0:text, 
+        resolvedcurrent_date_0:text, 
+        resolvedcurrent_timestamp_0:text, 
+        systemdefinedji_0:text, 
+        vtqualifier_0:text, 
+        ttqualifier_0:text
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD recentteraddl(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD databasename_0 (=,in) OPT ANY
+             ADD tablename_0 (=,in) OPT ANY
+             ADD version_0 (=,in) OPT ANY
+             ADD tablekind_0 (=,in) OPT ANY
+             ADD protectiontype_0 (=,in) OPT ANY
+             ADD journalflag_0 (=,in) OPT ANY
+             ADD creatorname_0 (=,in) OPT ANY
+             ADD requesttext_0 (=,in) OPT ANY
+             ADD commentstring_0 (=,in) OPT ANY
+             ADD parentcount_0 (=,in) OPT ANY
+             ADD childcount_0 (=,in) OPT ANY
+             ADD namedtblcheckcount_0 (=,in) OPT ANY
+             ADD unnamedtblcheckexist_0 (=,in) OPT ANY
+             ADD primarykeyindexid_0 (=,in) OPT ANY
+             ADD repstatus_0 (=,in) OPT ANY
+             ADD createtimestamp_0 (=,in) OPT ANY
+             ADD lastaltername_0 (=,in) OPT ANY
+             ADD lastaltertimestamp_0 (=,in) OPT ANY
+             ADD requesttxtoverflow_0 (=,in) OPT ANY
+             ADD accesscount_0 (=,in) OPT ANY
+             ADD lastaccesstimestamp_0 (=,in) OPT ANY
+             ADD utilversion_0 (=,in) OPT ANY
+             ADD queueflag_0 (=,in) OPT ANY
+             ADD commitopt_0 (=,in) OPT ANY
+             ADD translog_0 (=,in) OPT ANY
+             ADD checkopt_0 (=,in) OPT ANY
+             ADD temporalproperty_0 (=,in) OPT ANY
+             ADD resolvedcurrent_date_0 (=,in) OPT ANY
+             ADD resolvedcurrent_timestamp_0 (=,in) OPT ANY
+             ADD systemdefinedji_0 (=,in) OPT ANY
+             ADD vtqualifier_0 (=,in) OPT ANY
+             ADD ttqualifier_0 (=,in) OPT ANY
+        )
+        OUTPUTLIST (accesscount_0, checkopt_0, childcount_0, commentstring_0, commitopt_0, createtimestamp_0, creatorname_0, databasename_0, journalflag_0, lastaccesstimestamp_0, lastaltername_0, lastaltertimestamp_0, namedtblcheckcount_0, parentcount_0, primarykeyindexid_0, protectiontype_0, queueflag_0, repstatus_0, requesttext_0, requesttxtoverflow_0, resolvedcurrent_date_0, resolvedcurrent_timestamp_0, systemdefinedji_0, tablekind_0, tablename_0, temporalproperty_0, translog_0, ttqualifier_0, unnamedtblcheckexist_0, utilversion_0, version_0, vtqualifier_0
+        )
+        WRAPPER (df recentteraddl)
+    );
+

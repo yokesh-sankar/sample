@@ -1,0 +1,25 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC del
+    DATASOURCENAME=incident_cc
+    SCHEMANAME = '${databases.denodo_training.views.jdbc.del.SCHEMANAME}'
+    PACKAGENAME='PCKG' 
+    PROCEDURENAME='DEL' 
+    OUTPUTSCHEMA (
+        i = 'I' :'java.math.BigDecimal' (sourcetyperadix='10', sourcetypesize='22', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL NOT SORTABLE PARAMINDEX=1 PARAMTYPE=1
+    );
+
+CREATE OR REPLACE TABLE del I18N us_pst (
+        i:decimal (extern, sourcetyperadix = '10', sourcetypesize = '22', sourcetypeid = '3')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD del(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD i (=,is null) OBL ONE
+        )
+        OUTPUTLIST (i
+        )
+        WRAPPER (jdbc del)
+    );
+

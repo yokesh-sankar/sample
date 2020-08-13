@@ -1,0 +1,54 @@
+﻿CREATE OR REPLACE WRAPPER WS updatecompanya
+    FOLDER = '/demo'
+    DATASOURCENAME=ws_companya
+    SERVICENAME='companyaService'
+    PORTNAME='companya'
+    OPERATIONNAME='updateCOMPANYA'
+    INPUTMESSAGE='updateCOMPANYARequest'
+    OUTPUTMESSAGE='updateCOMPANYAResponse'
+    OUTPUTSCHEMA (
+    updatecompanya = '$$0': REGISTER OF (
+        id='ID' (OBL),
+        name='NAME' (OBL),
+        dept='DEPT' (OBL),
+        city='CITY' (OBL),
+        postalcode='POSTALCODE' (OBL),
+        newid='newID' (OBL),
+        newname='newNAME' (OBL),
+        newdept='newDEPT' (OBL),
+        newcity='newCITY' (OBL),
+        newpostalcode='newPOSTALCODE' (OBL)
+    ),
+    return='$$$$'
+    );
+
+CREATE OR REPLACE TYPE updatecompanya_updatecompanya AS REGISTER OF (id:decimal, name:text, dept:text, city:text, postalcode:decimal, newid:decimal, newname:text, newdept:text, newcity:text, newpostalcode:decimal);
+
+CREATE OR REPLACE TABLE updatecompanya I18N us_pst (
+        updatecompanya:updatecompanya_updatecompanya, 
+        return:long
+    )
+    FOLDER = '/demo'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD updatecompanya(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD updatecompanya (=,is null) OPT ONE
+             ADD updatecompanya.id (=) OBL ONE
+             ADD updatecompanya.name (=) OBL ONE
+             ADD updatecompanya.dept (=) OBL ONE
+             ADD updatecompanya.city (=) OBL ONE
+             ADD updatecompanya.postalcode (=) OBL ONE
+             ADD updatecompanya.newid (=) OBL ONE
+             ADD updatecompanya.newname (=) OBL ONE
+             ADD updatecompanya.newdept (=) OBL ONE
+             ADD updatecompanya.newcity (=) OBL ONE
+             ADD updatecompanya.newpostalcode (=) OBL ONE
+             ADD return NOS ZERO ()
+        )
+        OUTPUTLIST (return, updatecompanya
+        )
+        WRAPPER (ws updatecompanya)
+    );
+

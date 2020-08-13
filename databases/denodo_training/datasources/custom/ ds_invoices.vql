@@ -1,0 +1,33 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE CUSTOM " ds_invoices"
+    CLASSNAME='com.denodo.vdb.contrib.wrapper.xls.ExcelWrapper';
+
+CREATE OR REPLACE WRAPPER CUSTOM " ds_invoices"
+    DATASOURCENAME=" ds_invoices"
+    PARAMETERS (
+      'Type of file' = 'Excel 2007 or later (*.xlsx)',
+      'File location' = ROUTE LOCAL 'LocalConnection' '${databases.denodo_training.views.custom. ds_invoices.File location.ROUTE.LOCAL.PATH}',
+      'Extract data from all sheets' = true,
+      'Extract sheet name as a new column' = true,
+      'Start cell' = 'A4',
+      'Has headers' = false,
+      'Stream tuples' = true
+    )
+    OUTPUTSCHEMA (
+        "Column_0" = 'Column_0' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        "Column_1" = 'Column_1' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        "Column_2" = 'Column_2' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        "Column_3" = 'Column_3' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        "Column_4" = 'Column_4' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        "Column_5" = 'Column_5' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        "Column_6" = 'Column_6' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        "Column_7" = 'Column_7' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        "Column_8" = 'Column_8' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        "Column_9" = 'Column_9' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        "Column_10" = 'Column_10' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        "Column_11" = 'Column_11' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        "Column_12" = 'Column_12' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        "Column_13" = 'Column_13' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        sheet_name = 'sheet_name' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE
+    );
+

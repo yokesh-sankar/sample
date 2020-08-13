@@ -1,0 +1,34 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC sel
+    DATASOURCENAME=incident_cc
+    SCHEMANAME = '${databases.denodo_training.views.jdbc.sel.SCHEMANAME}'
+    PACKAGENAME='PCKG' 
+    PROCEDURENAME='SEL' 
+    OUTPUTSCHEMA (
+        city = 'CITY' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT SORTABLE PARAMINDEX=1 PARAMTYPE=4 FROMFLATTEN='R',
+        id = 'ID' :'java.math.BigDecimal' (sourcetypeid='2', sourcetypename='NUMBER')  NOT SORTABLE PARAMINDEX=1 PARAMTYPE=4 FROMFLATTEN='R',
+        name = 'NAME' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT SORTABLE PARAMINDEX=1 PARAMTYPE=4 FROMFLATTEN='R',
+        salary = 'SALARY' :'java.math.BigDecimal' (sourcetypeid='2', sourcetypename='NUMBER')  NOT SORTABLE PARAMINDEX=1 PARAMTYPE=4 FROMFLATTEN='R'
+    );
+
+CREATE OR REPLACE TABLE sel I18N us_pst (
+        city:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12'), 
+        id:decimal (sourcetypeid = '3'), 
+        name:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12'), 
+        salary:decimal (sourcetypeid = '3')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD sel(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD city NOS ZERO ()
+             ADD id NOS ZERO ()
+             ADD name NOS ZERO ()
+             ADD salary NOS ZERO ()
+        )
+        OUTPUTLIST (city, id, name, salary
+        )
+        WRAPPER (jdbc sel)
+    );
+

@@ -1,0 +1,12 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE WS ws_companya
+    FOLDER = '/demo'
+    WSDLURI = '${databases.denodo_training.folder.demo.datasources.ws.ws_companya.WSDLURI}'
+    CHECKCERTIFICATES 
+    MAXCONNECTIONS 50
+    CONNECTIONPOOLTIMEOUT 0
+    AUTHENTICATION HTTP BASIC ( 
+      USER '${databases.denodo_training.folder.demo.datasources.ws.ws_companya.USER}'
+      PASSWORD '${databases.denodo_training.folder.demo.datasources.ws.ws_companya.PASSWORD}' ${databases.denodo_training.folder.demo.datasources.ws.ws_companya.PASSWORD.ENCRYPTED} )
+    PROXY OFF;
+

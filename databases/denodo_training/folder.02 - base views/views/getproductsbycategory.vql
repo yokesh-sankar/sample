@@ -1,0 +1,55 @@
+﻿CREATE OR REPLACE WRAPPER WS getproductsbycategory
+    FOLDER = '/02 - base views'
+    DATASOURCENAME=ds_product
+    SERVICENAME='products-ws'
+    PORTNAME='ProductImplPort'
+    OPERATIONNAME='getProductsByCategory'
+    INPUTMESSAGE='getProductsByCategory'
+    OUTPUTMESSAGE='getProductsByCategoryResponse'
+    OUTPUTSCHEMA (
+    parameters = '$$0': REGISTER OF (
+        categoryname='categoryName' (OBL)
+    ),
+    return = '$$$$': REGISTER OF (
+        products = 'products': ARRAY OF (
+            productdata = 'ProductData': REGISTER OF (
+                productid='productId',
+                productname='productName',
+                productprice='productPrice'
+            )
+        )
+    )
+    );
+
+CREATE OR REPLACE TYPE getproductsbycategory_parameters AS REGISTER OF (categoryname:text);
+
+CREATE OR REPLACE TYPE getproductsbycategory_return_products_productdata AS REGISTER OF (productid:int, productname:text, productprice:float);
+
+CREATE OR REPLACE TYPE getproductsbycategory_return_products AS ARRAY OF getproductsbycategory_return_products_productdata;
+
+CREATE OR REPLACE TYPE getproductsbycategory_return AS REGISTER OF (products:getproductsbycategory_return_products);
+
+CREATE OR REPLACE TABLE getproductsbycategory I18N us_pst (
+        parameters:getproductsbycategory_parameters, 
+        return:getproductsbycategory_return
+    )
+    FOLDER = '/02 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD getproductsbycategory(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD parameters (=,is null) OPT ONE
+             ADD parameters.categoryname (=) OBL ONE
+             ADD return NOS ZERO ()
+             ADD return.products NOS ZERO ()
+             ADD return.products NOS ZERO ()
+             ADD return.products.productid NOS ZERO ()
+             ADD return.products.productname NOS ZERO ()
+             ADD return.products.productprice NOS ZERO ()
+        )
+        OUTPUTLIST (parameters, return
+        )
+        WRAPPER (ws getproductsbycategory)
+    );
+

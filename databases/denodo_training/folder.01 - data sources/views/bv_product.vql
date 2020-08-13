@@ -1,0 +1,101 @@
+﻿CREATE OR REPLACE WRAPPER WS bv_product
+    FOLDER = '/01 - data sources'
+    DATASOURCENAME=ds_product
+    SERVICENAME='products-ws'
+    PORTNAME='ProductImplPort'
+    OPERATIONNAME='getAllProductDetails'
+    INPUTMESSAGE='getAllProductDetails'
+    OUTPUTMESSAGE='getAllProductDetailsResponse'
+    OUTPUTSCHEMA (
+    parameters = '$$0': REGISTER OF (
+    ),
+    return = '$$$$': REGISTER OF (
+        product = 'product': REGISTER OF (
+            code='code',
+            description='description',
+            warnings='warnings',
+            numresults='numResults',
+            productdetails = 'productDetails': ARRAY OF (
+                productdetaildata = 'ProductDetailData': REGISTER OF (
+                    productid='productId',
+                    productname='productName',
+                    productprice='productPrice',
+                    category = 'category': REGISTER OF (
+                        categoryid='categoryId',
+                        categoryname='categoryName'
+                    ),
+                    characteristics = 'characteristics': REGISTER OF (
+                        characteristic_dimensions='characteristic_dimensions',
+                        characteristic_weight='characteristic_weight',
+                        characteristic_details='characteristic_details',
+                        characteristic_color='characteristic_color'
+                    ),
+                    accessories = 'accessories': ARRAY OF (
+                        productdata = 'ProductData': REGISTER OF (
+                            productid='productId',
+                            productname='productName',
+                            productprice='productPrice'
+                        )
+                    )
+                )
+            )
+        )
+    )
+    );
+
+CREATE OR REPLACE TYPE getallproductdetails_return_product_productdetails_productdetaildata_category AS REGISTER OF (categoryid:int, categoryname:text);
+
+CREATE OR REPLACE TYPE getallproductdetails_return_product_productdetails_productdetaildata_characteristics AS REGISTER OF (characteristic_dimensions:text, characteristic_weight:text, characteristic_details:text, characteristic_color:text);
+
+CREATE OR REPLACE TYPE getallproductdetails_return_product_productdetails_productdetaildata_accessories_productdata AS REGISTER OF (productid:int, productname:text, productprice:float);
+
+CREATE OR REPLACE TYPE getallproductdetails_return_product_productdetails_productdetaildata_accessories AS ARRAY OF getallproductdetails_return_product_productdetails_productdetaildata_accessories_productdata;
+
+CREATE OR REPLACE TYPE getallproductdetails_return_product_productdetails_productdetaildata AS REGISTER OF (productid:int, productname:text, productprice:float, category:getallproductdetails_return_product_productdetails_productdetaildata_category, characteristics:getallproductdetails_return_product_productdetails_productdetaildata_characteristics, accessories:getallproductdetails_return_product_productdetails_productdetaildata_accessories);
+
+CREATE OR REPLACE TYPE getallproductdetails_return_product_productdetails AS ARRAY OF getallproductdetails_return_product_productdetails_productdetaildata;
+
+CREATE OR REPLACE TYPE getallproductdetails_return_product AS REGISTER OF (code:text, description:text, warnings:text, numresults:text, productdetails:getallproductdetails_return_product_productdetails);
+
+CREATE OR REPLACE TYPE getallproductdetails_return AS REGISTER OF (product:getallproductdetails_return_product);
+
+CREATE OR REPLACE TABLE bv_product I18N us_pst (
+        return:getallproductdetails_return
+    )
+    FOLDER = '/01 - data sources'
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_product(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD return NOS ZERO ()
+             ADD return.product NOS ZERO ()
+             ADD return.product.code NOS ZERO ()
+             ADD return.product.description NOS ZERO ()
+             ADD return.product.warnings NOS ZERO ()
+             ADD return.product.numresults NOS ZERO ()
+             ADD return.product.productdetails NOS ZERO ()
+             ADD return.product.productdetails NOS ZERO ()
+             ADD return.product.productdetails.productid NOS ZERO ()
+             ADD return.product.productdetails.productname NOS ZERO ()
+             ADD return.product.productdetails.productprice NOS ZERO ()
+             ADD return.product.productdetails.category NOS ZERO ()
+             ADD return.product.productdetails.category.categoryid NOS ZERO ()
+             ADD return.product.productdetails.category.categoryname NOS ZERO ()
+             ADD return.product.productdetails.characteristics NOS ZERO ()
+             ADD return.product.productdetails.characteristics.characteristic_dimensions NOS ZERO ()
+             ADD return.product.productdetails.characteristics.characteristic_weight NOS ZERO ()
+             ADD return.product.productdetails.characteristics.characteristic_details NOS ZERO ()
+             ADD return.product.productdetails.characteristics.characteristic_color NOS ZERO ()
+             ADD return.product.productdetails.accessories NOS ZERO ()
+             ADD return.product.productdetails.accessories NOS ZERO ()
+             ADD return.product.productdetails.accessories.productid NOS ZERO ()
+             ADD return.product.productdetails.accessories.productname NOS ZERO ()
+             ADD return.product.productdetails.accessories.productprice NOS ZERO ()
+        )
+        OUTPUTLIST (return
+        )
+        WRAPPER (ws bv_product)
+    );
+

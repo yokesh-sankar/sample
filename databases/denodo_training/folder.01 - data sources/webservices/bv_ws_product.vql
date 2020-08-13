@@ -1,0 +1,144 @@
+﻿CREATE OR REPLACE SOAP WEBSERVICE bv_ws_product
+    CONNECTION (
+        CHUNKSIZE = 1000
+        CHUNKTIMEOUT = 90000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    I18N  = us_pst
+    DATETYPEMAPPING DATE
+    NOWRAPARRAYS
+    RAISEFAULTONIDU
+    DONOTAPPLYOUTPUTXSLTTOERRORS
+    OUTPUT 
+        ( STYLE DOCUMENT )
+    OPERATION 'product' (
+        TYPE SELECT
+        SCHEMA VIEW bv_product
+        VQL = 'SELECT return FROM denodo_training.bv_product ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''us_pst''^ExecuteIfIsNotNull(", ",@VERBOSEERRORS,"")^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'product' (
+            'RETURN' return:'getallproductdetails_return' '=' (
+                    '/RETURN/product'='PRODUCT':'getallproductdetails_return_product',
+                    '/RETURN/product/code'='CODE',
+                    '/RETURN/product/description'='DESCRIPTION',
+                    '/RETURN/product/numresults'='NUMRESULTS',
+                    '/RETURN/product/productdetails'='PRODUCTDETAILS':'getallproductdetails_return_product_productdetails' / 'getallproductdetails_return_product_productdetails_productdetaildata',
+                    '/RETURN/product/productdetails/accessories'='ACCESSORIES':'getallproductdetails_return_product_productdetails_productdetaildata_accessories' / 'getallproductdetails_return_product_productdetails_productdetaildata_accessories_productdata',
+                    '/RETURN/product/productdetails/accessories/productid'='PRODUCTID',
+                    '/RETURN/product/productdetails/accessories/productname'='PRODUCTNAME',
+                    '/RETURN/product/productdetails/accessories/productprice'='PRODUCTPRICE',
+                    '/RETURN/product/productdetails/category'='CATEGORY':'getallproductdetails_return_product_productdetails_productdetaildata_category',
+                    '/RETURN/product/productdetails/category/categoryid'='CATEGORYID',
+                    '/RETURN/product/productdetails/category/categoryname'='CATEGORYNAME',
+                    '/RETURN/product/productdetails/characteristics'='CHARACTERISTICS':'getallproductdetails_return_product_productdetails_productdetaildata_characteristics',
+                    '/RETURN/product/productdetails/characteristics/characteristic_color'='CHARACTERISTIC_COLOR',
+                    '/RETURN/product/productdetails/characteristics/characteristic_details'='CHARACTERISTIC_DETAILS',
+                    '/RETURN/product/productdetails/characteristics/characteristic_dimensions'='CHARACTERISTIC_DIMENSIONS',
+                    '/RETURN/product/productdetails/characteristics/characteristic_weight'='CHARACTERISTIC_WEIGHT',
+                    '/RETURN/product/productdetails/productid'='PRODUCTID',
+                    '/RETURN/product/productdetails/productname'='PRODUCTNAME',
+                    '/RETURN/product/productdetails/productprice'='PRODUCTPRICE',
+                    '/RETURN/product/warnings'='WARNINGS',
+                    '/RETURN'='RETURN':'getallproductdetails_return')
+            'RETURN_PRODUCT' (return).product:'getallproductdetails_return_product' '=' (
+                    '/RETURN_PRODUCT/code'='CODE',
+                    '/RETURN_PRODUCT/description'='DESCRIPTION',
+                    '/RETURN_PRODUCT/numresults'='NUMRESULTS',
+                    '/RETURN_PRODUCT/productdetails'='PRODUCTDETAILS':'getallproductdetails_return_product_productdetails' / 'getallproductdetails_return_product_productdetails_productdetaildata',
+                    '/RETURN_PRODUCT/productdetails/accessories'='ACCESSORIES':'getallproductdetails_return_product_productdetails_productdetaildata_accessories' / 'getallproductdetails_return_product_productdetails_productdetaildata_accessories_productdata',
+                    '/RETURN_PRODUCT/productdetails/accessories/productid'='PRODUCTID',
+                    '/RETURN_PRODUCT/productdetails/accessories/productname'='PRODUCTNAME',
+                    '/RETURN_PRODUCT/productdetails/accessories/productprice'='PRODUCTPRICE',
+                    '/RETURN_PRODUCT/productdetails/category'='CATEGORY':'getallproductdetails_return_product_productdetails_productdetaildata_category',
+                    '/RETURN_PRODUCT/productdetails/category/categoryid'='CATEGORYID',
+                    '/RETURN_PRODUCT/productdetails/category/categoryname'='CATEGORYNAME',
+                    '/RETURN_PRODUCT/productdetails/characteristics'='CHARACTERISTICS':'getallproductdetails_return_product_productdetails_productdetaildata_characteristics',
+                    '/RETURN_PRODUCT/productdetails/characteristics/characteristic_color'='CHARACTERISTIC_COLOR',
+                    '/RETURN_PRODUCT/productdetails/characteristics/characteristic_details'='CHARACTERISTIC_DETAILS',
+                    '/RETURN_PRODUCT/productdetails/characteristics/characteristic_dimensions'='CHARACTERISTIC_DIMENSIONS',
+                    '/RETURN_PRODUCT/productdetails/characteristics/characteristic_weight'='CHARACTERISTIC_WEIGHT',
+                    '/RETURN_PRODUCT/productdetails/productid'='PRODUCTID',
+                    '/RETURN_PRODUCT/productdetails/productname'='PRODUCTNAME',
+                    '/RETURN_PRODUCT/productdetails/productprice'='PRODUCTPRICE',
+                    '/RETURN_PRODUCT/warnings'='WARNINGS',
+                    '/RETURN_PRODUCT'='RETURN_PRODUCT':'getallproductdetails_return_product')
+            'RETURN_PRODUCT_CODE' (return).product.code:'text' '=' 
+            'RETURN_PRODUCT_DESCRIPTION' (return).product.description:'text' '=' 
+            'RETURN_PRODUCT_NUMRESULTS' (return).product.numresults:'text' '=' 
+            'RETURN_PRODUCT_PRODUCTDETAILS' (return).product.productdetails:'getallproductdetails_return_product_productdetails' '=' (
+                    '/RETURN_PRODUCT_PRODUCTDETAILS/accessories'='ACCESSORIES':'getallproductdetails_return_product_productdetails_productdetaildata_accessories' / 'getallproductdetails_return_product_productdetails_productdetaildata_accessories_productdata',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS/accessories/productid'='PRODUCTID',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS/accessories/productname'='PRODUCTNAME',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS/accessories/productprice'='PRODUCTPRICE',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS/category'='CATEGORY':'getallproductdetails_return_product_productdetails_productdetaildata_category',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS/category/categoryid'='CATEGORYID',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS/category/categoryname'='CATEGORYNAME',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS/characteristics'='CHARACTERISTICS':'getallproductdetails_return_product_productdetails_productdetaildata_characteristics',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS/characteristics/characteristic_color'='CHARACTERISTIC_COLOR',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS/characteristics/characteristic_details'='CHARACTERISTIC_DETAILS',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS/characteristics/characteristic_dimensions'='CHARACTERISTIC_DIMENSIONS',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS/characteristics/characteristic_weight'='CHARACTERISTIC_WEIGHT',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS/productid'='PRODUCTID',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS/productname'='PRODUCTNAME',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS/productprice'='PRODUCTPRICE',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS'='RETURN_PRODUCT_PRODUCTDETAILS':'getallproductdetails_return_product_productdetails' / 'getallproductdetails_return_product_productdetails_productdetaildata')
+            'RETURN_PRODUCT_PRODUCTDETAILS_ACCESSORIES' (return).product.productdetails.accessories:'getallproductdetails_return_product_productdetails_productdetaildata_accessories' '=' (
+                    '/RETURN_PRODUCT_PRODUCTDETAILS_ACCESSORIES/productid'='PRODUCTID',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS_ACCESSORIES/productname'='PRODUCTNAME',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS_ACCESSORIES/productprice'='PRODUCTPRICE',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS_ACCESSORIES'='RETURN_PRODUCT_PRODUCTDETAILS_ACCESSORIES':'getallproductdetails_return_product_productdetails_productdetaildata_accessories' / 'getallproductdetails_return_product_productdetails_productdetaildata_accessories_productdata')
+            'RETURN_PRODUCT_PRODUCTDETAILS_ACCESSORIES_PRODUCTID' (return).product.productdetails.accessories.productid:'int' '=' 
+            'RETURN_PRODUCT_PRODUCTDETAILS_ACCESSORIES_PRODUCTNAME' (return).product.productdetails.accessories.productname:'text' '=' 
+            'RETURN_PRODUCT_PRODUCTDETAILS_ACCESSORIES_PRODUCTPRICE' (return).product.productdetails.accessories.productprice:'float' '=' 
+            'RETURN_PRODUCT_PRODUCTDETAILS_CATEGORY' (return).product.productdetails.category:'getallproductdetails_return_product_productdetails_productdetaildata_category' '=' (
+                    '/RETURN_PRODUCT_PRODUCTDETAILS_CATEGORY/categoryid'='CATEGORYID',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS_CATEGORY/categoryname'='CATEGORYNAME',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS_CATEGORY'='RETURN_PRODUCT_PRODUCTDETAILS_CATEGORY':'getallproductdetails_return_product_productdetails_productdetaildata_category')
+            'RETURN_PRODUCT_PRODUCTDETAILS_CATEGORY_CATEGORYID' (return).product.productdetails.category.categoryid:'int' '=' 
+            'RETURN_PRODUCT_PRODUCTDETAILS_CATEGORY_CATEGORYNAME' (return).product.productdetails.category.categoryname:'text' '=' 
+            'RETURN_PRODUCT_PRODUCTDETAILS_CHARACTERISTICS' (return).product.productdetails.characteristics:'getallproductdetails_return_product_productdetails_productdetaildata_characteristics' '=' (
+                    '/RETURN_PRODUCT_PRODUCTDETAILS_CHARACTERISTICS/characteristic_color'='CHARACTERISTIC_COLOR',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS_CHARACTERISTICS/characteristic_details'='CHARACTERISTIC_DETAILS',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS_CHARACTERISTICS/characteristic_dimensions'='CHARACTERISTIC_DIMENSIONS',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS_CHARACTERISTICS/characteristic_weight'='CHARACTERISTIC_WEIGHT',
+                    '/RETURN_PRODUCT_PRODUCTDETAILS_CHARACTERISTICS'='RETURN_PRODUCT_PRODUCTDETAILS_CHARACTERISTICS':'getallproductdetails_return_product_productdetails_productdetaildata_characteristics')
+            'RETURN_PRODUCT_PRODUCTDETAILS_CHARACTERISTICS_CHARACTERISTIC_COLOR' (return).product.productdetails.characteristics.characteristic_color:'text' '=' 
+            'RETURN_PRODUCT_PRODUCTDETAILS_CHARACTERISTICS_CHARACTERISTIC_DETAILS' (return).product.productdetails.characteristics.characteristic_details:'text' '=' 
+            'RETURN_PRODUCT_PRODUCTDETAILS_CHARACTERISTICS_CHARACTERISTIC_DIMENSIONS' (return).product.productdetails.characteristics.characteristic_dimensions:'text' '=' 
+            'RETURN_PRODUCT_PRODUCTDETAILS_CHARACTERISTICS_CHARACTERISTIC_WEIGHT' (return).product.productdetails.characteristics.characteristic_weight:'text' '=' 
+            'RETURN_PRODUCT_PRODUCTDETAILS_PRODUCTID' (return).product.productdetails.productid:'int' '=' 
+            'RETURN_PRODUCT_PRODUCTDETAILS_PRODUCTNAME' (return).product.productdetails.productname:'text' '=' 
+            'RETURN_PRODUCT_PRODUCTDETAILS_PRODUCTPRICE' (return).product.productdetails.productprice:'float' '=' 
+            'RETURN_PRODUCT_WARNINGS' (return).product.warnings:'text' '=' 
+        )
+        OUTPUT 
+            'BV_PRODUCTReturn': Array of ( 'BV_PRODUCTReturnRow': Register of (
+                return : 'getallproductdetails_return'
+            ) (
+                    '/return'='RETURN':'getallproductdetails_return',
+                    '/return/product'='PRODUCT':'getallproductdetails_return_product',
+                    '/return/product/code'='CODE',
+                    '/return/product/description'='DESCRIPTION',
+                    '/return/product/numresults'='NUMRESULTS',
+                    '/return/product/productdetails'='PRODUCTDETAILS':'getallproductdetails_return_product_productdetails' / 'getallproductdetails_return_product_productdetails_productdetaildata',
+                    '/return/product/productdetails/accessories'='ACCESSORIES':'getallproductdetails_return_product_productdetails_productdetaildata_accessories' / 'getallproductdetails_return_product_productdetails_productdetaildata_accessories_productdata',
+                    '/return/product/productdetails/accessories/productid'='PRODUCTID',
+                    '/return/product/productdetails/accessories/productname'='PRODUCTNAME',
+                    '/return/product/productdetails/accessories/productprice'='PRODUCTPRICE',
+                    '/return/product/productdetails/category'='CATEGORY':'getallproductdetails_return_product_productdetails_productdetaildata_category',
+                    '/return/product/productdetails/category/categoryid'='CATEGORYID',
+                    '/return/product/productdetails/category/categoryname'='CATEGORYNAME',
+                    '/return/product/productdetails/characteristics'='CHARACTERISTICS':'getallproductdetails_return_product_productdetails_productdetaildata_characteristics',
+                    '/return/product/productdetails/characteristics/characteristic_color'='CHARACTERISTIC_COLOR',
+                    '/return/product/productdetails/characteristics/characteristic_details'='CHARACTERISTIC_DETAILS',
+                    '/return/product/productdetails/characteristics/characteristic_dimensions'='CHARACTERISTIC_DIMENSIONS',
+                    '/return/product/productdetails/characteristics/characteristic_weight'='CHARACTERISTIC_WEIGHT',
+                    '/return/product/productdetails/productid'='PRODUCTID',
+                    '/return/product/productdetails/productname'='PRODUCTNAME',
+                    '/return/product/productdetails/productprice'='PRODUCTPRICE',
+                    '/return/product/warnings'='WARNINGS'))
+    )
+    FOLDER = '/01 - data sources';
+

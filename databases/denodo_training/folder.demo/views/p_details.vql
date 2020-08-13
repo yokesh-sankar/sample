@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW p_details FOLDER = '/demo' AS SELECT register(details.first_name, details.last_name) AS name FROM details;
+
+ALTER VIEW p_details
+ LAYOUT (details = [20, 20, 200, 106]);
+

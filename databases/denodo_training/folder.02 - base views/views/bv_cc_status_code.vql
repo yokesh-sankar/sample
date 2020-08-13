@@ -1,0 +1,27 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_cc_status_code
+    FOLDER = '/02 - base views'
+    DATASOURCENAME=ds_call_center
+    SQLSENTENCE='select * from status_code'   
+    OUTPUTSCHEMA (
+        code_id = 'CODE_ID' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='11', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        code_description = 'CODE_DESCRIPTION' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='16', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE TABLE bv_cc_status_code I18N us_pst (
+        code_id:text (sourcetypedecimals = '0', sourcetypesize = '11', sourcetypeid = '12'), 
+        code_description:text (sourcetypedecimals = '0', sourcetypesize = '16', sourcetypeid = '12')
+    )
+    FOLDER = '/02 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_cc_status_code(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD code_id NOS ZERO ()
+             ADD code_description NOS ZERO ()
+        )
+        OUTPUTLIST (code_description, code_id
+        )
+        WRAPPER (jdbc bv_cc_status_code)
+    );
+

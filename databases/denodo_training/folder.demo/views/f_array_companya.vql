@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW f_array_companya FOLDER = '/demo' AS SELECT id, name, dept, city FROM FLATTEN array_companya AS v ( v.allfields);
+
+ALTER VIEW f_array_companya
+ LAYOUT (array_companya = [20, 20, 308, 126]);
+

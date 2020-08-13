@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW companybarray FOLDER = '/demo' AS SELECT id AS id, nest(city, postalcode) AS location FROM companyb GROUP BY id;
+
+ALTER VIEW companybarray
+ LAYOUT (companyb = [20, 20, 200, 105]);
+

@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW f_companybarray FOLDER = '/demo' AS SELECT id, city, postalcode FROM FLATTEN companybarray AS v ( v.location);
+
+ALTER VIEW f_companybarray
+ LAYOUT (companybarray = [20, 20, 318, 65]);
+

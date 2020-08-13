@@ -1,0 +1,43 @@
+﻿CREATE OR REPLACE WRAPPER JDBC companyb
+    FOLDER = '/demo'
+    DATASOURCENAME=demo
+    SQLSENTENCE='select  *  from techie.companyb'   
+    OUTPUTSCHEMA (
+        id = 'ID' :'java.math.BigDecimal' (sourcetypedecimals='0', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL SORTABLE NOT UPDATEABLE,
+        name = 'NAME' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='100', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE NOT UPDATEABLE,
+        dept = 'DEPT' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='100', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        city = 'CITY' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='100', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        postalcode = 'POSTALCODE' :'java.math.BigDecimal' (sourcetypedecimals='0', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE NOT UPDATEABLE
+    )
+    SOURCECONFIGURATION (
+        datainorderfieldslist = ()
+    );
+
+CREATE OR REPLACE TABLE companyb I18N us_pst (
+        id:int (sourcetypedecimals = '0', sourcetypesize = '38', sourcetypeid = '3'), 
+        name:text (sourcetypedecimals = '0', sourcetypesize = '100', sourcetypeid = '12'), 
+        dept:text (sourcetypedecimals = '0', sourcetypesize = '100', sourcetypeid = '12'), 
+        city:text (sourcetypedecimals = '0', sourcetypesize = '100', sourcetypeid = '12'), 
+        postalcode:int (sourcetypedecimals = '0', sourcetypesize = '38', sourcetypeid = '3')
+    )
+    FOLDER = '/demo'
+    PRIMARY KEY ( 'name' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    SWAP ON
+    ADD SEARCHMETHOD companyb(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD city NOS ZERO ()
+             ADD dept NOS ZERO ()
+             ADD name NOS ZERO ()
+             ADD postalcode NOS ZERO ()
+             ADD id NOS ZERO ()
+        )
+        OUTPUTLIST (dept, id, name, postalcode
+        )
+        WRAPPER (jdbc companyb)
+    )
+     DECLARE VIEW CLUSTER INDEX index1 PRIMARY  UNIQUE  ON (name, dept)
+    DECLARE CACHE INDEX temp UNIQUE  ON (id, name, dept, city, postalcode);
+

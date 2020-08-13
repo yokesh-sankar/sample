@@ -1,0 +1,33 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC order_item
+    DATASOURCENAME=ds_web_orders
+    SCHEMANAME = '${databases.denodo_training.views.jdbc.order_item.SCHEMANAME}'
+    RELATIONNAME='ORDER_ITEM' 
+    OUTPUTSCHEMA (
+        id = 'ID' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        order_id = 'ORDER_ID' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        product_id = 'PRODUCT_ID' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE
+    )
+    CONSTRAINT 'ORDER_ITEM_PK' PRIMARY KEY ( 'ID' )
+    INDEX 'ORDER_ITEM_PK' CLUSTER UNIQUE PRIMARY ( 'ID' );
+
+CREATE OR REPLACE TABLE bv_wo_order_item I18N us_pst (
+        id:decimal (sourcetyperadix = '10', sourcetypeid = '3'), 
+        order_id:decimal (sourcetyperadix = '10', sourcetypeid = '3'), 
+        product_id:decimal (sourcetyperadix = '10', sourcetypeid = '3')
+    )
+    CONSTRAINT 'ORDER_ITEM_PK' PRIMARY KEY ( 'id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD order_item(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD id (any) OPT ANY
+             ADD order_id (any) OPT ANY
+             ADD product_id (any) OPT ANY
+        )
+        OUTPUTLIST (id, order_id, product_id
+        )
+        WRAPPER (jdbc order_item)
+    );
+

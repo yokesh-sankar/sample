@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW bv_invoices FOLDER = '/02 - base views' AS SELECT ds_invoices_0.invoicesof_0 AS invoicesof_0, ds_invoices_0.feb AS feb FROM ds_invoices_0;
+
+ALTER VIEW bv_invoices
+ LAYOUT (ds_invoices_0 = [20, 20, 200, 65]);
+

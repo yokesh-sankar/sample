@@ -1,0 +1,3 @@
+﻿/databases/denodo_training/datasources/jdbc/ds_web_orders.vql
+/databases/denodo_training/views/bv_wo_order_item.vql
+/databases/denodo_training/views/bv_wo_orders.vql

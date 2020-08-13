@@ -1,0 +1,39 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_cc_service_location
+    FOLDER = '/02 - base views'
+    DATASOURCENAME=ds_call_center
+    SQLSENTENCE='select * from service_location'   
+    OUTPUTSCHEMA (
+        id = 'ID' :'java.math.BigDecimal' (sourcetypedecimals='0', sourcetypesize='22', sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL SORTABLE NOT UPDATEABLE,
+        location_id = 'LOCATION_ID' :'java.math.BigDecimal' (sourcetypedecimals='0', sourcetypesize='22', sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL SORTABLE NOT UPDATEABLE,
+        customer_id = 'CUSTOMER_ID' :'java.math.BigDecimal' (sourcetypedecimals='0', sourcetypesize='22', sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL SORTABLE NOT UPDATEABLE,
+        business_name = 'BUSINESS_NAME' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        service_location = 'SERVICE_LOCATION' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        other_details = 'OTHER_DETAILS' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE TABLE bv_cc_service_location I18N us_pst (
+        id:decimal (sourcetypedecimals = '0', sourcetypesize = '22', sourcetypeid = '3'), 
+        location_id:decimal (sourcetypedecimals = '0', sourcetypesize = '22', sourcetypeid = '3'), 
+        customer_id:decimal (sourcetypedecimals = '0', sourcetypesize = '22', sourcetypeid = '3'), 
+        business_name:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12'), 
+        service_location:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12'), 
+        other_details:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12')
+    )
+    FOLDER = '/02 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_cc_service_location(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD id NOS ZERO ()
+             ADD location_id NOS ZERO ()
+             ADD customer_id NOS ZERO ()
+             ADD business_name NOS ZERO ()
+             ADD service_location NOS ZERO ()
+             ADD other_details NOS ZERO ()
+        )
+        OUTPUTLIST (business_name, customer_id, id, location_id, other_details, service_location
+        )
+        WRAPPER (jdbc bv_cc_service_location)
+    );
+

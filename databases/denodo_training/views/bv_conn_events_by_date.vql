@@ -1,0 +1,30 @@
+﻿CREATE OR REPLACE WRAPPER DF ds_connections_date
+    DATASOURCENAME=ds_connections_date
+    OUTPUTSCHEMA (
+        event_date = 'Column0' (OPT),
+        source_ip = 'Column1' (OPT),
+        device = 'Column2' (OPT),
+        path = 'Column3' (OPT)
+    );
+
+CREATE OR REPLACE TABLE bv_conn_events_by_date I18N us_pst (
+        event_date:text, 
+        source_ip:text, 
+        device:text, 
+        path:text
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_connections_date(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD event_date (=,in) OPT ANY
+             ADD source_ip (=,in) OPT ANY
+             ADD device (=,in) OPT ANY
+             ADD path (=,in) OPT ANY
+        )
+        OUTPUTLIST (event_date, source_ip, device, path
+        )
+        WRAPPER (df ds_connections_date)
+    );
+

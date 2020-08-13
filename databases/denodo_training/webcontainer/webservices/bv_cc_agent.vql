@@ -1,0 +1,5 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+UNDEPLOY IF EXISTS WEBSERVICE bv_cc_agent;
+
+DEPLOY WEBSERVICE bv_cc_agent LOGIN = '${databases.denodo_training.webcontainer.webservices.bv_cc_agent.LOGIN}' PASSWORD = '${databases.denodo_training.webcontainer.webservices.bv_cc_agent.PASSWORD}' ${databases.denodo_training.webcontainer.webservices.bv_cc_agent.PASSWORD.ENCRYPTED};
+

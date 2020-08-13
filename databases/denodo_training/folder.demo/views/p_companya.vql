@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW p_companya FOLDER = '/demo' AS SELECT companya.id AS id, companya.name AS name, companya.dept AS dept, companya.city AS city, companya.postalcode AS postalcode, register(companya.name, companya.dept) AS common FROM companya;
+
+ALTER VIEW p_companya
+ LAYOUT (companya = [20, 20, 200, 105]);
+

@@ -1,0 +1,44 @@
+﻿CREATE OR REPLACE WRAPPER WS deletecompanya
+    FOLDER = '/demo'
+    DATASOURCENAME=ws_companya
+    SERVICENAME='companyaService'
+    PORTNAME='companya'
+    OPERATIONNAME='deleteCOMPANYA'
+    INPUTMESSAGE='deleteCOMPANYARequest'
+    OUTPUTMESSAGE='deleteCOMPANYAResponse'
+    OUTPUTSCHEMA (
+    deletecompanya = '$$0': REGISTER OF (
+        id='ID' (OBL),
+        name='NAME' (OBL),
+        dept='DEPT' (OBL),
+        city='CITY' (OBL),
+        postalcode='POSTALCODE' (OBL)
+    ),
+    return='$$$$'
+    );
+
+CREATE OR REPLACE TYPE deletecompanya_deletecompanya AS REGISTER OF (id:decimal, name:text, dept:text, city:text, postalcode:decimal);
+
+CREATE OR REPLACE TABLE deletecompanya I18N us_pst (
+        deletecompanya:deletecompanya_deletecompanya, 
+        return:long
+    )
+    FOLDER = '/demo'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD deletecompanya(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD deletecompanya (=,is null) OPT ONE
+             ADD deletecompanya.id (=) OBL ONE
+             ADD deletecompanya.name (=) OBL ONE
+             ADD deletecompanya.dept (=) OBL ONE
+             ADD deletecompanya.city (=) OBL ONE
+             ADD deletecompanya.postalcode (=) OBL ONE
+             ADD return NOS ZERO ()
+        )
+        OUTPUTLIST (deletecompanya, return
+        )
+        WRAPPER (ws deletecompanya)
+    );
+

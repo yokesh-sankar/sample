@@ -1,0 +1,62 @@
+﻿CREATE OR REPLACE WRAPPER WS geta
+    FOLDER = '/demo'
+    DATASOURCENAME=wb
+    SERVICENAME='companyaService'
+    PORTNAME='companya'
+    OPERATIONNAME='getCOMPANYAByIDAndNAMEAndDEPTAndCITYAndPOSTALCODE'
+    INPUTMESSAGE='getCOMPANYAByIDAndNAMEAndDEPTAndCITYAndPOSTALCODERequest'
+    OUTPUTMESSAGE='getCOMPANYAByIDAndNAMEAndDEPTAndCITYAndPOSTALCODEResponse'
+    OUTPUTSCHEMA (
+    getcompanyabyidandnameanddeptandcityandpostalcode = '$$0': REGISTER OF (
+        id='ID' (OBL),
+        name='NAME' (OBL),
+        dept='DEPT' (OBL),
+        city='CITY' (OBL),
+        postalcode='POSTALCODE' (OBL)
+    ),
+    return = '$$$$': ARRAY OF (
+        companyareturnrow = 'COMPANYAReturnRow': REGISTER OF (
+            id='ID',
+            name='NAME',
+            dept='DEPT',
+            city='CITY',
+            postalcode='POSTALCODE'
+        )
+    )
+    );
+
+CREATE OR REPLACE TYPE getcompanyabyidandnameanddeptandcityandpostalcode_getcompanyabyidandnameanddeptandcityandpostalcode AS REGISTER OF (id:decimal, name:text, dept:text, city:text, postalcode:decimal);
+
+CREATE OR REPLACE TYPE getcompanyabyidandnameanddeptandcityandpostalcode_return_companyareturnrow AS REGISTER OF (id:decimal, name:text, dept:text, city:text, postalcode:decimal);
+
+CREATE OR REPLACE TYPE getcompanyabyidandnameanddeptandcityandpostalcode_return AS ARRAY OF getcompanyabyidandnameanddeptandcityandpostalcode_return_companyareturnrow;
+
+CREATE OR REPLACE TABLE geta I18N us_pst (
+        getcompanyabyidandnameanddeptandcityandpostalcode:getcompanyabyidandnameanddeptandcityandpostalcode_getcompanyabyidandnameanddeptandcityandpostalcode, 
+        return:getcompanyabyidandnameanddeptandcityandpostalcode_return
+    )
+    FOLDER = '/demo'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD geta(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD getcompanyabyidandnameanddeptandcityandpostalcode (=,is null) OPT ONE
+             ADD getcompanyabyidandnameanddeptandcityandpostalcode.id (=) OBL ONE
+             ADD getcompanyabyidandnameanddeptandcityandpostalcode.name (=) OBL ONE
+             ADD getcompanyabyidandnameanddeptandcityandpostalcode.dept (=) OBL ONE
+             ADD getcompanyabyidandnameanddeptandcityandpostalcode.city (=) OBL ONE
+             ADD getcompanyabyidandnameanddeptandcityandpostalcode.postalcode (=) OBL ONE
+             ADD return NOS ZERO ()
+             ADD return NOS ZERO ()
+             ADD return.id NOS ZERO ()
+             ADD return.name NOS ZERO ()
+             ADD return.dept NOS ZERO ()
+             ADD return.city NOS ZERO ()
+             ADD return.postalcode NOS ZERO ()
+        )
+        OUTPUTLIST (getcompanyabyidandnameanddeptandcityandpostalcode, return
+        )
+        WRAPPER (ws geta)
+    );
+

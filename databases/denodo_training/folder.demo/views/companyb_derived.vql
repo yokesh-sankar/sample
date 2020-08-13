@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW companyb_derived FOLDER = '/demo' AS SELECT companyb.id AS id, companyb.name AS name, companyb.dept AS dept, companyb.city AS city, companyb.postalcode AS postalcode FROM companyb;
+
+ALTER VIEW companyb_derived
+ LAYOUT (companyb = [20, 20, 200, 105]);
+

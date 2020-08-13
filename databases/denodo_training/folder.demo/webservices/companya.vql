@@ -1,0 +1,27 @@
+﻿CREATE OR REPLACE REST WEBSERVICE companya
+    CONNECTION (
+        CHUNKSIZE = 10
+        CHUNKTIMEOUT = 90000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    DEFAULTREPRESENTATION = HTML
+    SUPPORTEDREPRESENTATIONS (HTML, XML, JSON)    AUTHENTICATION (BASIC
+    USER 'admin'
+    PASSWORD 'iafrYcvZ+01/7ypcJOpYCk1fnxEEgI3M80oiUjjcnhsMqUh8Zuj2X07YOBEsC3p297AfxbFtpd1e7p+SuSV0llEhhnteWWHbyVNUnf46NB1p+TowSbwbRmlB7MwQRIeO' ENCRYPTED )
+
+    RESOURCES (
+        VIEW companya FIELDS (
+            id : 'decimal' OUTPUT_ONLY, 
+            name : 'text' INPUT_ONLY, 
+            dept : 'text', 
+            city : 'text', 
+            postalcode : 'decimal'
+        )
+    )
+    OPTIONS ( NULLVALUESASEMPTYXMLELEMENTS = false ) 
+    OPENAPI2 ( API_VERSION = '1.0.0' ) 
+    FOLDER = '/demo';
+

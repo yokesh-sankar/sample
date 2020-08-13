@@ -1,0 +1,27 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_cc_problem_2556
+    FOLDER = '/02 - base views'
+    DATASOURCENAME=ds_call_center
+    SQLSENTENCE='select * from problem'   
+    OUTPUTSCHEMA (
+        problem_code = 'PROBLEM_CODE' :'java.math.BigDecimal' (sourcetypedecimals='0', sourcetypesize='22', sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL SORTABLE NOT UPDATEABLE,
+        problem_description = 'PROBLEM_DESCRIPTION' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE TABLE bv_cc_problem I18N us_pst (
+        problem_code:decimal (sourcetypedecimals = '0', sourcetypesize = '22', sourcetypeid = '3'), 
+        problem_description:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12')
+    )
+    FOLDER = '/02 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_cc_problem(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD problem_code NOS ZERO ()
+             ADD problem_description NOS ZERO ()
+        )
+        OUTPUTLIST (problem_code, problem_description
+        )
+        WRAPPER (jdbc bv_cc_problem_2556)
+    );
+

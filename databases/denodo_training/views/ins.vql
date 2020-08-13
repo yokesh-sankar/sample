@@ -1,0 +1,34 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC ins
+    DATASOURCENAME=incident_cc
+    SCHEMANAME = '${databases.denodo_training.views.jdbc.ins.SCHEMANAME}'
+    PACKAGENAME='PCKG' 
+    PROCEDURENAME='INS' 
+    OUTPUTSCHEMA (
+        i = 'I' :'java.math.BigDecimal' (sourcetyperadix='10', sourcetypesize='22', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL NOT SORTABLE PARAMINDEX=1 PARAMTYPE=1,
+        n = 'N' :'java.lang.String' (sourcetyperadix='10', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL NOT SORTABLE PARAMINDEX=2 PARAMTYPE=1,
+        c = 'C' :'java.lang.String' (sourcetyperadix='10', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL NOT SORTABLE PARAMINDEX=3 PARAMTYPE=1,
+        s = 'S' :'java.math.BigDecimal' (sourcetyperadix='10', sourcetypesize='22', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL NOT SORTABLE PARAMINDEX=4 PARAMTYPE=1
+    );
+
+CREATE OR REPLACE TABLE ins I18N us_pst (
+        i:decimal (extern, sourcetyperadix = '10', sourcetypesize = '22', sourcetypeid = '3'), 
+        n:text (extern, sourcetyperadix = '10', sourcetypeid = '12'), 
+        c:text (extern, sourcetyperadix = '10', sourcetypeid = '12'), 
+        s:decimal (extern, sourcetyperadix = '10', sourcetypesize = '22', sourcetypeid = '3')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ins(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD i (=,is null) OBL ONE
+             ADD n (=,is null) OBL ONE
+             ADD c (=,is null) OBL ONE
+             ADD s (=,is null) OBL ONE
+        )
+        OUTPUTLIST (c, i, n, s
+        )
+        WRAPPER (jdbc ins)
+    );
+

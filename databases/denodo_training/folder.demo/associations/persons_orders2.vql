@@ -1,0 +1,11 @@
+﻿CREATE OR REPLACE ASSOCIATION persons_orders2 REFERENTIAL CONSTRAINT 
+FOLDER = '/demo'
+    ENDPOINT role1 persons PRINCIPAL (1)
+    DESCRIPTION = 'roles'
+    ENDPOINT role2 orders2 (0,*)
+    DESCRIPTION = 'roles'
+    ADD MAPPING personid=personid;
+
+ALTER ASSOCIATION persons_orders2
+ LAYOUT (persons = [20, 20, 200, 106], orders2 = [410, 250, 420, 99]);
+

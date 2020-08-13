@@ -1,0 +1,33 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC details
+    DATASOURCENAME=demo
+    SCHEMANAME = '${databases.denodo_training.views.jdbc.details.SCHEMANAME}'
+    RELATIONNAME='DETAILS' 
+    OUTPUTSCHEMA (
+        first_name = 'FIRST_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        last_name = 'LAST_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='40', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        dept = 'DEPT' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        location = 'LOCATION' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE details I18N us_pst (
+        first_name:text (sourcetyperadix = '10', sourcetypesize = '30', sourcetypeid = '12'), 
+        last_name:text (sourcetyperadix = '10', sourcetypesize = '40', sourcetypeid = '12'), 
+        dept:text (sourcetyperadix = '10', sourcetypesize = '30', sourcetypeid = '12'), 
+        location:text (sourcetyperadix = '10', sourcetypesize = '30', sourcetypeid = '12')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD details(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD first_name (any) OPT ANY
+             ADD last_name (any) OPT ANY
+             ADD dept (any) OPT ANY
+             ADD location (any) OPT ANY
+        )
+        OUTPUTLIST (dept, first_name, last_name, location
+        )
+        WRAPPER (jdbc details)
+    );
+

@@ -1,0 +1,270 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC contact
+    FOLDER = '/01 - data sources'
+    DATASOURCENAME=forcache
+    SCHEMANAME = '${databases.denodo_training.folder.01 - data sources.views.jdbc.contact.SCHEMANAME}'
+    RELATIONNAME='CONTACT' 
+    OUTPUTSCHEMA (
+        id = 'ID' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        isdeleted = 'ISDELETED' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        masterrecordid = 'MASTERRECORDID' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        accountid = 'ACCOUNTID' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        lastname = 'LASTNAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        firstname = 'FIRSTNAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        salutation = 'SALUTATION' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        name = 'NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        otherstreet = 'OTHERSTREET' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        othercity = 'OTHERCITY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        otherstate = 'OTHERSTATE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        otherpostalcode = 'OTHERPOSTALCODE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        othercountry = 'OTHERCOUNTRY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        otherlatitude = 'OTHERLATITUDE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        otherlongitude = 'OTHERLONGITUDE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        othergeocodeaccuracy = 'OTHERGEOCODEACCURACY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        mailingstreet = 'MAILINGSTREET' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        mailingcity = 'MAILINGCITY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        mailingstate = 'MAILINGSTATE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        mailingpostalcode = 'MAILINGPOSTALCODE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        mailingcountry = 'MAILINGCOUNTRY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='128', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        mailinglatitude = 'MAILINGLATITUDE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        mailinglongitude = 'MAILINGLONGITUDE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        mailinggeocodeaccuracy = 'MAILINGGEOCODEACCURACY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        phone = 'PHONE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        fax = 'FAX' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        mobilephone = 'MOBILEPHONE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        homephone = 'HOMEPHONE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        otherphone = 'OTHERPHONE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        assistantphone = 'ASSISTANTPHONE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        reportstoid = 'REPORTSTOID' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        email = 'EMAIL' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='128', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        title = 'TITLE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        department = 'DEPARTMENT' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        assistantname = 'ASSISTANTNAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        leadsource = 'LEADSOURCE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        birthdate = 'BIRTHDATE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        description = 'DESCRIPTION' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        currencyisocode = 'CURRENCYISOCODE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        ownerid = 'OWNERID' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        hasoptedoutofemail = 'HASOPTEDOUTOFEMAIL' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        donotcall = 'DONOTCALL' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        createddate = 'CREATEDDATE' :'java.time.LocalDateTime' (OPT) (sourcetyperadix='10', sourcetypesize='7', sourcetypeid='93', sourcetypename='DATE')  SORTABLE,
+        createdbyid = 'CREATEDBYID' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        lastmodifieddate = 'LASTMODIFIEDDATE' :'java.time.LocalDateTime' (OPT) (sourcetyperadix='10', sourcetypesize='7', sourcetypeid='93', sourcetypename='DATE')  SORTABLE,
+        lastmodifiedbyid = 'LASTMODIFIEDBYID' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        systemmodstamp = 'SYSTEMMODSTAMP' :'java.time.LocalDateTime' (OPT) (sourcetyperadix='10', sourcetypesize='7', sourcetypeid='93', sourcetypename='DATE')  SORTABLE,
+        lastactivitydate = 'LASTACTIVITYDATE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        lastcurequestdate = 'LASTCUREQUESTDATE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        lastcuupdatedate = 'LASTCUUPDATEDATE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        lastvieweddate = 'LASTVIEWEDDATE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        lastreferenceddate = 'LASTREFERENCEDDATE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        emailbouncedreason = 'EMAILBOUNCEDREASON' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        emailbounceddate = 'EMAILBOUNCEDDATE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        isemailbounced = 'ISEMAILBOUNCED' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        photourl = 'PHOTOURL' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        jigsaw = 'JIGSAW' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        jigsawcontactid = 'JIGSAWCONTACTID' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        zoom__zi_person__c = 'ZOOM__ZI_PERSON__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        zoom__zi_importeddate__c = 'ZOOM__ZI_IMPORTEDDATE__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        assistantemail__c = 'ASSISTANTEMAIL__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        auxfilteringcode__c = 'AUXFILTERINGCODE__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        lead_origin__c = 'LEAD_ORIGIN__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        lead_gen_event__c = 'LEAD_GEN_EVENT__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        rating__c = 'RATING__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        also_known_as_contact__c = 'ALSO_KNOWN_AS_CONTACT__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        level__c = 'LEVEL__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        external_user_id__c = 'EXTERNAL_USER_ID__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        active__c = 'ACTIVE__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        pw_cc__mailingaddressstatus__c = 'PW_CC__MAILINGADDRESSSTATUS__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        pw_cc__mailingcountrylookup__c = 'PW_CC__MAILINGCOUNTRYLOOKUP__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        pw_cc__mailingstatelookup__c = 'PW_CC__MAILINGSTATELOOKUP__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        pw_cc__otheraddressstatus__c = 'PW_CC__OTHERADDRESSSTATUS__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        contact_status__c = 'CONTACT_STATUS__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        linkpointtouchdate__c = 'LINKPOINTTOUCHDATE__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        pw_cc__countrytext__c = 'PW_CC__COUNTRYTEXT__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        pw_cc__mailingzipcodelookup__c = 'PW_CC__MAILINGZIPCODELOOKUP__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        pw_cc__statetext__c = 'PW_CC__STATETEXT__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        lead_score__c = 'LEAD_SCORE__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        owner_id__c = 'OWNER_ID__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        contacts__c = 'CONTACTS__C' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='3', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        brighttalk__user_id__c = 'BRIGHTTALK__USER_ID__C' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='26', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_sf_contact I18N us_pst (
+        id:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        isdeleted:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        masterrecordid:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        accountid:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        lastname:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        firstname:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        salutation:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        name:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        otherstreet:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        othercity:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        otherstate:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        otherpostalcode:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        othercountry:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        otherlatitude:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        otherlongitude:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        othergeocodeaccuracy:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        mailingstreet:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        mailingcity:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        mailingstate:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        mailingpostalcode:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        mailingcountry:text (sourcetyperadix = '10', sourcetypesize = '128', sourcetypeid = '12'), 
+        mailinglatitude:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        mailinglongitude:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        mailinggeocodeaccuracy:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        phone:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        fax:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        mobilephone:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        homephone:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        otherphone:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        assistantphone:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        reportstoid:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        email:text (sourcetyperadix = '10', sourcetypesize = '128', sourcetypeid = '12'), 
+        title:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        department:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        assistantname:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        leadsource:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        birthdate:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        description:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        currencyisocode:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        ownerid:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        hasoptedoutofemail:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        donotcall:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        createddate:timestamp (sourcetyperadix = '10', sourcetypesize = '7', sourcetypeid = '93'), 
+        createdbyid:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        lastmodifieddate:timestamp (sourcetyperadix = '10', sourcetypesize = '7', sourcetypeid = '93'), 
+        lastmodifiedbyid:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        systemmodstamp:timestamp (sourcetyperadix = '10', sourcetypesize = '7', sourcetypeid = '93'), 
+        lastactivitydate:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        lastcurequestdate:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        lastcuupdatedate:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        lastvieweddate:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        lastreferenceddate:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        emailbouncedreason:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        emailbounceddate:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        isemailbounced:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        photourl:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        jigsaw:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        jigsawcontactid:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        zoom__zi_person__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        zoom__zi_importeddate__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        assistantemail__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        auxfilteringcode__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        lead_origin__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        lead_gen_event__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        rating__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        also_known_as_contact__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        level__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        external_user_id__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        active__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        pw_cc__mailingaddressstatus__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        pw_cc__mailingcountrylookup__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        pw_cc__mailingstatelookup__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        pw_cc__otheraddressstatus__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        contact_status__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        linkpointtouchdate__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        pw_cc__countrytext__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        pw_cc__mailingzipcodelookup__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        pw_cc__statetext__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        lead_score__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        owner_id__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12'), 
+        contacts__c:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '3', sourcetypeid = '4'), 
+        brighttalk__user_id__c:text (sourcetyperadix = '10', sourcetypesize = '26', sourcetypeid = '12')
+    )
+    FOLDER = '/01 - data sources'
+    CACHE FULL
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD contact(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD id (any) OPT ANY
+             ADD isdeleted (any) OPT ANY
+             ADD masterrecordid (any) OPT ANY
+             ADD accountid (any) OPT ANY
+             ADD lastname (any) OPT ANY
+             ADD firstname (any) OPT ANY
+             ADD salutation (any) OPT ANY
+             ADD name (any) OPT ANY
+             ADD otherstreet (any) OPT ANY
+             ADD othercity (any) OPT ANY
+             ADD otherstate (any) OPT ANY
+             ADD otherpostalcode (any) OPT ANY
+             ADD othercountry (any) OPT ANY
+             ADD otherlatitude (any) OPT ANY
+             ADD otherlongitude (any) OPT ANY
+             ADD othergeocodeaccuracy (any) OPT ANY
+             ADD mailingstreet (any) OPT ANY
+             ADD mailingcity (any) OPT ANY
+             ADD mailingstate (any) OPT ANY
+             ADD mailingpostalcode (any) OPT ANY
+             ADD mailingcountry (any) OPT ANY
+             ADD mailinglatitude (any) OPT ANY
+             ADD mailinglongitude (any) OPT ANY
+             ADD mailinggeocodeaccuracy (any) OPT ANY
+             ADD phone (any) OPT ANY
+             ADD fax (any) OPT ANY
+             ADD mobilephone (any) OPT ANY
+             ADD homephone (any) OPT ANY
+             ADD otherphone (any) OPT ANY
+             ADD assistantphone (any) OPT ANY
+             ADD reportstoid (any) OPT ANY
+             ADD email (any) OPT ANY
+             ADD title (any) OPT ANY
+             ADD department (any) OPT ANY
+             ADD assistantname (any) OPT ANY
+             ADD leadsource (any) OPT ANY
+             ADD birthdate (any) OPT ANY
+             ADD description (any) OPT ANY
+             ADD currencyisocode (any) OPT ANY
+             ADD ownerid (any) OPT ANY
+             ADD hasoptedoutofemail (any) OPT ANY
+             ADD donotcall (any) OPT ANY
+             ADD createddate (any) OPT ANY
+             ADD createdbyid (any) OPT ANY
+             ADD lastmodifieddate (any) OPT ANY
+             ADD lastmodifiedbyid (any) OPT ANY
+             ADD systemmodstamp (any) OPT ANY
+             ADD lastactivitydate (any) OPT ANY
+             ADD lastcurequestdate (any) OPT ANY
+             ADD lastcuupdatedate (any) OPT ANY
+             ADD lastvieweddate (any) OPT ANY
+             ADD lastreferenceddate (any) OPT ANY
+             ADD emailbouncedreason (any) OPT ANY
+             ADD emailbounceddate (any) OPT ANY
+             ADD isemailbounced (any) OPT ANY
+             ADD photourl (any) OPT ANY
+             ADD jigsaw (any) OPT ANY
+             ADD jigsawcontactid (any) OPT ANY
+             ADD zoom__zi_person__c (any) OPT ANY
+             ADD zoom__zi_importeddate__c (any) OPT ANY
+             ADD assistantemail__c (any) OPT ANY
+             ADD auxfilteringcode__c (any) OPT ANY
+             ADD lead_origin__c (any) OPT ANY
+             ADD lead_gen_event__c (any) OPT ANY
+             ADD rating__c (any) OPT ANY
+             ADD also_known_as_contact__c (any) OPT ANY
+             ADD level__c (any) OPT ANY
+             ADD external_user_id__c (any) OPT ANY
+             ADD active__c (any) OPT ANY
+             ADD pw_cc__mailingaddressstatus__c (any) OPT ANY
+             ADD pw_cc__mailingcountrylookup__c (any) OPT ANY
+             ADD pw_cc__mailingstatelookup__c (any) OPT ANY
+             ADD pw_cc__otheraddressstatus__c (any) OPT ANY
+             ADD contact_status__c (any) OPT ANY
+             ADD linkpointtouchdate__c (any) OPT ANY
+             ADD pw_cc__countrytext__c (any) OPT ANY
+             ADD pw_cc__mailingzipcodelookup__c (any) OPT ANY
+             ADD pw_cc__statetext__c (any) OPT ANY
+             ADD lead_score__c (any) OPT ANY
+             ADD owner_id__c (any) OPT ANY
+             ADD contacts__c (any) OPT ANY
+             ADD brighttalk__user_id__c (any) OPT ANY
+        )
+        OUTPUTLIST (accountid, active__c, also_known_as_contact__c, assistantemail__c, assistantname, assistantphone, auxfilteringcode__c, birthdate, brighttalk__user_id__c, contact_status__c, contacts__c, createdbyid, createddate, currencyisocode, department, description, donotcall, email, emailbounceddate, emailbouncedreason, external_user_id__c, fax, firstname, hasoptedoutofemail, homephone, id, isdeleted, isemailbounced, jigsaw, jigsawcontactid, lastactivitydate, lastcurequestdate, lastcuupdatedate, lastmodifiedbyid, lastmodifieddate, lastname, lastreferenceddate, lastvieweddate, lead_gen_event__c, lead_origin__c, lead_score__c, leadsource, level__c, linkpointtouchdate__c, mailingcity, mailingcountry, mailinggeocodeaccuracy, mailinglatitude, mailinglongitude, mailingpostalcode, mailingstate, mailingstreet, masterrecordid, mobilephone, name, othercity, othercountry, othergeocodeaccuracy, otherlatitude, otherlongitude, otherphone, otherpostalcode, otherstate, otherstreet, owner_id__c, ownerid, phone, photourl, pw_cc__countrytext__c, pw_cc__mailingaddressstatus__c, pw_cc__mailingcountrylookup__c, pw_cc__mailingstatelookup__c, pw_cc__mailingzipcodelookup__c, pw_cc__otheraddressstatus__c, pw_cc__statetext__c, rating__c, reportstoid, salutation, systemmodstamp, title, zoom__zi_importeddate__c, zoom__zi_person__c
+        )
+        WRAPPER (jdbc contact)
+    );
+

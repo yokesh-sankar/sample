@@ -1,0 +1,18 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE XML ds_sales_search
+    FOLDER = '/09 - data services'
+    SCHEMA LOCAL 'LocalConnection' '${databases.denodo_training.folder.09 - data services.datasources.xml.ds_sales_search.SCHEMA.ROUTE.LOCAL.PATH}'
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' POST '${databases.denodo_training.folder.09 - data services.datasources.xml.ds_sales_search.ROUTE.HTTP.URL}'
+    POSTBODY '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                    <SalesPostData>
+                        <customerId>@{{cid}}</customerId>
+                        <employeeId>@{{eid}}</employeeId>
+                        <productId>@{{pid}}</productId>
+                    </SalesPostData>
+
+'
+    MIME 'application/xml'
+    AUTHENTICATION OFF
+    PROXY OFF
+    VALIDATE = FALSE;
+

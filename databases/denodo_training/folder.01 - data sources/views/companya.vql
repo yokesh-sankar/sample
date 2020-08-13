@@ -1,0 +1,40 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC companya
+    FOLDER = '/01 - data sources'
+    DATASOURCENAME=demo
+    SCHEMANAME = '${databases.denodo_training.folder.01 - data sources.views.jdbc.companya.SCHEMANAME}'
+    RELATIONNAME='COMPANYA' 
+    OUTPUTSCHEMA (
+        id = 'ID' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        name = 'NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='100', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        dept = 'DEPT' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='100', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        city = 'CITY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='100', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        postalcode = 'POSTALCODE' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE companya I18N us_pst (
+        id:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '38', sourcetypeid = '3'), 
+        name:text (sourcetyperadix = '10', sourcetypesize = '100', sourcetypeid = '12'), 
+        dept:text (sourcetyperadix = '10', sourcetypesize = '100', sourcetypeid = '12'), 
+        city:text (sourcetyperadix = '10', sourcetypesize = '100', sourcetypeid = '12'), 
+        postalcode:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '38', sourcetypeid = '3')
+    )
+    FOLDER = '/01 - data sources'
+    PRIMARY KEY ( 'id' )
+    CACHE FULL INCREMENTAL 'name > ''@LASTCACHEREFRESH'''
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD companya(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD id (any) OPT ANY
+             ADD name (any) OPT ANY
+             ADD dept (any) OPT ANY
+             ADD city (any) OPT ANY
+             ADD postalcode (any) OPT ANY
+        )
+        OUTPUTLIST (city, dept, id, name, postalcode
+        )
+        WRAPPER (jdbc companya)
+    );
+

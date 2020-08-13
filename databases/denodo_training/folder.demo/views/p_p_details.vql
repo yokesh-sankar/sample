@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW p_p_details FOLDER = '/demo' AS SELECT p_details.name AS name, (p_details.name).first_name AS first_name FROM p_details;
+
+ALTER VIEW p_p_details
+ LAYOUT (p_details = [20, 20, 280, 45]);
+

@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW p_persons FOLDER = '/demo' AS SELECT persons.personid AS personid, persons.firstname AS firstname, persons.lastname AS lastname, persons.age AS age FROM persons;
+
+ALTER VIEW p_persons
+ LAYOUT (persons = [20, 20, 200, 105]);
+

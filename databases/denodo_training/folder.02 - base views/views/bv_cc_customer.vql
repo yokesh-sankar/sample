@@ -1,0 +1,42 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_cc_customer
+    FOLDER = '/02 - base views'
+    DATASOURCENAME=ds_call_center
+    SQLSENTENCE='select * from customer'   
+    OUTPUTSCHEMA (
+        customer_id = 'CUSTOMER_ID' :'java.math.BigDecimal' (sourcetypedecimals='0', sourcetypesize='22', sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL SORTABLE NOT UPDATEABLE,
+        customer_name = 'CUSTOMER_NAME' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE NOT UPDATEABLE,
+        customer_address = 'CUSTOMER_ADDRESS' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE NOT UPDATEABLE,
+        phone_number = 'PHONE_NUMBER' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        customer_code = 'CUSTOMER_CODE' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        job_title = 'JOB_TITLE' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        other_details = 'OTHER_DETAILS' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='250', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE TABLE bv_cc_customer I18N us_pst (
+        customer_id:decimal (sourcetypedecimals = '0', sourcetypesize = '22', sourcetypeid = '3'), 
+        customer_name:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12'), 
+        customer_address:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12'), 
+        phone_number:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12'), 
+        customer_code:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12'), 
+        job_title:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12'), 
+        other_details:text (sourcetypedecimals = '0', sourcetypesize = '250', sourcetypeid = '12')
+    )
+    FOLDER = '/02 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_cc_customer(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD customer_id NOS ZERO ()
+             ADD customer_name NOS ZERO ()
+             ADD customer_address NOS ZERO ()
+             ADD phone_number NOS ZERO ()
+             ADD customer_code NOS ZERO ()
+             ADD job_title NOS ZERO ()
+             ADD other_details NOS ZERO ()
+        )
+        OUTPUTLIST (customer_address, customer_code, customer_id, customer_name, job_title, other_details, phone_number
+        )
+        WRAPPER (jdbc bv_cc_customer)
+    );
+

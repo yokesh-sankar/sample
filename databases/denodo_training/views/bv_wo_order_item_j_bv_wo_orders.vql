@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW bv_wo_order_item_j_bv_wo_orders AS SELECT bv_wo_order_item.id AS id, bv_wo_order_item.order_id AS order_id, bv_wo_order_item.product_id AS product_id, bv_wo_orders.id AS id2, bv_wo_orders.customer_code AS customer_code, bv_wo_orders.status AS status, bv_wo_orders.date_placed AS date_placed, bv_wo_orders.date_delivered AS date_delivered, bv_wo_orders.date_closed AS date_closed FROM bv_wo_order_item AS bv_wo_order_item NESTED REVERSEORDER INNER JOIN bv_wo_orders AS bv_wo_orders ON bv_wo_order_item.id = bv_wo_orders.id  CONTEXT (QUERYPLAN = bv_wo_order_item_j_bv_wo_orders : NESTED REVERSEORDER);
+
+ALTER VIEW bv_wo_order_item_j_bv_wo_orders
+ LAYOUT (bv_wo_order_item = [20, 20, 200, 86], bv_wo_orders = [350, 60, 200, 146]);
+

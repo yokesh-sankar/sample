@@ -1,0 +1,59 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC service_call
+    FOLDER = '/02 - base views'
+    DATASOURCENAME=ds_call_center
+    SCHEMANAME = '${databases.denodo_training.folder.02 - base views.views.jdbc.service_call.SCHEMANAME}'
+    RELATIONNAME='SERVICE_CALL' 
+    OUTPUTSCHEMA (
+        call_id = 'CALL_ID' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='22', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        location_id = 'LOCATION_ID' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='22', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        problem_code = 'PROBLEM_CODE' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='22', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        status_code = 'STATUS_CODE' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='22', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        date_ticket_issued = 'DATE_TICKET_ISSUED' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='6', sourcetyperadix='10', sourcetypesize='11', sourcetypeid='93', sourcetypename='TIMESTAMP(6)')  SORTABLE,
+        date_call_received = 'DATE_CALL_RECEIVED' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='6', sourcetyperadix='10', sourcetypesize='11', sourcetypeid='93', sourcetypename='TIMESTAMP(6)')  SORTABLE,
+        other_details = 'OTHER_DETAILS' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='250', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        caller_phone = 'CALLER_PHONE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE,
+        case_id = 'CASE_ID' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='22', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        agent_id = 'AGENT_ID' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='22', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
+        customer_code = 'CUSTOMER_CODE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE
+    )
+    CONSTRAINT 'SYS_C007344' PRIMARY KEY ( 'CALL_ID' )
+    INDEX 'SYS_C007344' CLUSTER UNIQUE PRIMARY ( 'CALL_ID' );
+
+CREATE OR REPLACE TABLE bv_cc_service_call I18N us_pst (
+        call_id:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '22', sourcetypeid = '3'), 
+        location_id:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '22', sourcetypeid = '3'), 
+        problem_code:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '22', sourcetypeid = '3'), 
+        status_code:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '22', sourcetypeid = '3'), 
+        date_ticket_issued:timestamp (sourcetypedecimals = '6', sourcetyperadix = '10', sourcetypesize = '11', sourcetypeid = '93'), 
+        date_call_received:timestamp (sourcetypedecimals = '6', sourcetyperadix = '10', sourcetypesize = '11', sourcetypeid = '93'), 
+        other_details:text (sourcetyperadix = '10', sourcetypesize = '250', sourcetypeid = '12'), 
+        caller_phone:text (sourcetyperadix = '10', sourcetypesize = '50', sourcetypeid = '12'), 
+        case_id:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '22', sourcetypeid = '3'), 
+        agent_id:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '22', sourcetypeid = '3'), 
+        customer_code:text (sourcetyperadix = '10', sourcetypesize = '50', sourcetypeid = '12')
+    )
+    FOLDER = '/02 - base views'
+    CONSTRAINT 'SYS_C007344' PRIMARY KEY ( 'call_id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD service_call(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD call_id (any) OPT ANY
+             ADD location_id (any) OPT ANY
+             ADD problem_code (any) OPT ANY
+             ADD status_code (any) OPT ANY
+             ADD date_ticket_issued (any) OPT ANY
+             ADD date_call_received (any) OPT ANY
+             ADD other_details (any) OPT ANY
+             ADD caller_phone (any) OPT ANY
+             ADD case_id (any) OPT ANY
+             ADD agent_id (any) OPT ANY
+             ADD customer_code (any) OPT ANY
+        )
+        OUTPUTLIST (agent_id, call_id, caller_phone, case_id, customer_code, date_call_received, date_ticket_issued, location_id, other_details, problem_code, status_code
+        )
+        WRAPPER (jdbc service_call)
+    );
+

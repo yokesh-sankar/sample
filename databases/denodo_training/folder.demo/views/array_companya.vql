@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW array_companya FOLDER = '/demo' AS SELECT nest(id, name, dept, city) AS allfields FROM companya;
+
+ALTER VIEW array_companya
+ LAYOUT (companya = [20, 20, 200, 105]);
+

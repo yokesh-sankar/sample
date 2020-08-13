@@ -4,7 +4,7 @@ CREATE OR REPLACE WRAPPER JDBC details
     SCHEMANAME = '${databases.denodo_training.views.jdbc.details.SCHEMANAME}'
     RELATIONNAME='DETAILS' 
     OUTPUTSCHEMA (
-        first_name = 'FIRST_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        first_name = 'FIRST_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE,
         last_name = 'LAST_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='40', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
         dept = 'DEPT' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
         location = 'LOCATION' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE
@@ -16,6 +16,7 @@ CREATE OR REPLACE TABLE details I18N us_pst (
         dept:text (sourcetyperadix = '10', sourcetypesize = '30', sourcetypeid = '12'), 
         location:text (sourcetyperadix = '10', sourcetypesize = '30', sourcetypeid = '12')
     )
+    PRIMARY KEY ( 'first_name' )
     CACHE OFF
     TIMETOLIVEINCACHE DEFAULT
     ADD SEARCHMETHOD details(

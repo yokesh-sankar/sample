@@ -20,7 +20,7 @@ CREATE OR REPLACE TABLE persons I18N us_pst (
         age:decimal (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '38', sourcetypeid = '3')
     )
     FOLDER = '/demo'
-    PRIMARY KEY ( 'lastname' )
+    PRIMARY KEY ( 'age' )
     CACHE OFF
     TIMETOLIVEINCACHE DEFAULT
     ADD SEARCHMETHOD persons(
